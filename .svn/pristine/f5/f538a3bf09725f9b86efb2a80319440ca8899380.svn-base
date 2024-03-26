@@ -1,0 +1,439 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+
+namespace FrimexTransferencia
+{
+    public partial class FCon : Form
+    {
+        public FCon()
+        {
+            InitializeComponent();
+        }
+        public UsuariosC _Usuario = new UsuariosC();
+        string mensaje_error;
+        Mensajes mensajes = new Mensajes();
+        private string titulo_modulo = "Configuración";
+        string selected_item = "";
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void asignarPermisosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FPerUsu fPer = new FPerUsu();
+            fPer._Usuario.USUARIOID = Convert.ToInt32(dgvUsuarios.CurrentRow.Cells[0].Value); 
+            fPer.ShowDialog();
+        }
+        private void CargarAlmacenesEnGrid()
+        {
+            ConexionSql cn = new ConexionSql();
+            try
+            {
+                cn.ConectarSQLServer();
+                string consulta = "select INVENTARIO_FRIMEX_ID AS ALMACEN_ID, INVENTARIO_FRIMEX_FECHA_CREA AS FECHA_CREACION" +
+                    ",ALMACEN_MSP_DESCRIPCION AS NOMBRE_ALMACEN, ESTATUS AS ESTATUS_ALMACEN from INVENTARIO_FRIMEX";
+                DataTable _datos = new DataTable();
+                SqlDataAdapter _DA = new SqlDataAdapter(consulta, cn.SC);
+                _DA.Fill(_datos);
+                dGVAlmacenes.DataSource = _datos;
+                cn.Desconectar();
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(Ex.Message, "Error");
+            }
+        }
+
+        private void bGuardarBodega_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string _Estatus, _nombre, _tipoMovimiento;
+                //DataRowView _dRV = (DataRowView)cBEstatusBodega.SelectedItem;
+                //_AlmacenID = _dRV.Row.ItemArray[0].ToString();
+                _Estatus = cBEstatusBodega.SelectedItem.ToString() ;
+                _tipoMovimiento = cBTipoOperacionBodega.SelectedItem.ToString();
+                _nombre = tBNombreBodega.Text.Trim();
+                ConexionSql cn = new ConexionSql();
+
+                if (_nombre.Length >0 )
+                    if (_tipoMovimiento.Length > 0)
+                        if (_Estatus.Length > 0)
+                        {
+                            if (_tipoMovimiento == "ALTA")
+                                _tipoMovimiento = "A";
+                            else if (_tipoMovimiento == "BAJA")
+                                _tipoMovimiento = "B";
+                            else if (_tipoMovimiento == "CAMBIO")
+                                _tipoMovimiento = "C";
+
+                            if (_Estatus == "ACTIVO")
+                                _Estatus = "A";
+                            else if (_Estatus == "BAJA")
+                                _Estatus = "B";
+
+                            cn.ConectarSQLServer();
+                            if(_tipoMovimiento == "A")
+                            {
+                                 string consulta = "INSERT INTO [dbo].[INVENTARIO_FRIMEX] " +
+                                   " ([INVENTARIO_FRIMEX_ID] " +
+                                   " ,[INVENTARIO_FRIMEX_USUARIO_CREA] " +
+                                   " ,[INVENTARIO_FRIMEX_FECHA_CREA] " +
+                                   " ,[ALMACEN_MSP_ID] " +
+                                   " ,[ALMACEN_MSP_DESCRIPCION] " +
+                                   " ,[ESTATUS]) " +
+                                    " VALUES " +
+                                   " ( " + cn.ObtenerSigID() +
+                                   " , " + _Usuario.USUARIOID +
+                                   " ,'" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + "'" +
+                                   " , 0" +
+                                   " ,'" +_nombre+"'"+
+                                   " ,'"+_Estatus+"')";
+
+                                SqlCommand cmdm = new SqlCommand(consulta, cn.SC);
+                                if(cmdm.ExecuteNonQuery() >0)
+                                    MessageBox.Show("Almacen dado de alta correctamente");
+                                else
+                                    MessageBox.Show("Favor de reinentar");
+                                cmdm.Dispose();
+                                cn.Desconectar();
+                            }else if (_tipoMovimiento == "B")
+                            {
+                                string _almId = tBAlmacenId.Text.Trim();
+                                if (_almId.Length > 0)
+                                {
+                                    string consulta = "UPDATE [dbo].[INVENTARIO_FRIMEX] " +
+                                           " SET " +
+                                           " [ESTATUS] = 'B' " +
+                                           " WHERE[INVENTARIO_FRIMEX_ID] = "+_almId;
+
+                                    SqlCommand cmdm = new SqlCommand(consulta, cn.SC);
+                                    if (cmdm.ExecuteNonQuery() > 0)
+                                        MessageBox.Show("Almacen dado de baja correctamente");
+                                    else
+                                        MessageBox.Show("Favor de reinentar");
+                                    cmdm.Dispose();
+                                    cn.Desconectar();
+                                }else
+                                    MessageBox.Show("Favor de especificar el Id del almacen a dar de baja");
+
+
+                            }
+                            else if (_tipoMovimiento == "C")
+                            {
+
+                                string _almId = tBAlmacenId.Text.Trim(),_desc=tBNombreBodega.Text.Trim();
+                                if (_almId.Length > 0)                                
+                                {
+                                    if (_desc.Length > 0)
+                                    {
+                                        string consulta = "UPDATE [dbo].[INVENTARIO_FRIMEX] " +
+                                               " SET[ALMACEN_MSP_DESCRIPCION] = '"+_desc+"'" +
+                                               " ,[ESTATUS] = '" +_Estatus+"'"+
+                                               " WHERE[INVENTARIO_FRIMEX_ID] ="+_almId;
+
+                                        SqlCommand cmdm = new SqlCommand(consulta, cn.SC);
+                                        if (cmdm.ExecuteNonQuery() > 0)
+                                            MessageBox.Show("Almacen actualizado correctamente");
+                                        else
+                                            MessageBox.Show("Favor de reinentar");
+                                        cmdm.Dispose();
+                                        cn.Desconectar();
+                                    }
+                                    else
+                                        MessageBox.Show("Favor de especificar el nombre de almacen a modificar");
+                                }
+                                else
+                                    MessageBox.Show("Favor de especificar el Id del almacen a modificar");
+
+                                    
+                            }
+                        }
+                        else
+                            MessageBox.Show("Favor de seleccionar estatus de bodega");
+                    else
+                        MessageBox.Show("Favor de especificar el tipo de movimiento");
+                else
+                    MessageBox.Show("Favor de especificar el nombre del almacen a crear");
+                CargarAlmacenesEnGrid();
+
+            }
+            catch(Exception Ex)
+            {
+                MessageBox.Show(Ex.Message);
+            }
+        }
+
+        private void tCConfiguracion_Selected(object sender, TabControlEventArgs e)
+        {
+            CargarAlmacenesEnGrid();
+            CargarAlmacen(cBAlmacenes);
+        }
+
+        private void cBTipoOperacionBodega_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string _TipoMovimiento = Convert.ToString(cBTipoOperacionBodega.SelectedItem);
+            if(_TipoMovimiento.Length > 0)
+            {
+                if(_TipoMovimiento=="ACTIVO")
+                {
+                    lAlmacenId.Visible = false;
+                    tBAlmacenId.Visible = false;
+                }
+                else if (_TipoMovimiento == "BAJA")
+                {
+                    lAlmacenId.Visible = true;
+                    tBAlmacenId.Visible = true;
+                }
+                else if (_TipoMovimiento == "CAMBIO")
+                {
+                    lAlmacenId.Visible = true;
+                    tBAlmacenId.Enabled = true;
+                    tBAlmacenId.Visible = true;
+                }
+            }
+            
+
+        }
+
+        private void tBAlmacenId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                string _almId = tBAlmacenId.Text.Trim();
+                if(_almId.Length >0)
+                    CargarAlmacen(_almId);
+            }
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
+            {
+                e.Handled = true;
+                return;
+            }
+        }
+        private void CargarAlmacen(string Almacen_id)
+        {
+            ConexionSql cn = new ConexionSql();
+            try
+            {
+                tBAlmacenId.Enabled = false;
+                cn.ConectarSQLServer();
+                string consulta = "select INVENTARIO_FRIMEX_ID AS ALMACEN_ID, INVENTARIO_FRIMEX_FECHA_CREA AS FECHA_CREACION" +
+                    ",ALMACEN_MSP_DESCRIPCION AS NOMBRE_ALMACEN, ESTATUS AS ESTATUS_ALMACEN " +
+                    " from INVENTARIO_FRIMEX " +
+                    " where INVENTARIO_FRIMEX_ID ="+Almacen_id;
+                SqlCommand cmdm = new SqlCommand(consulta, cn.SC);
+                SqlDataReader reader = cmdm.ExecuteReader();
+                while (reader.Read())
+                {
+                    tBNombreBodega.Text = Convert.ToString(reader["NOMBRE_ALMACEN"]);
+                    int _estatus = 0;
+                    string _almEstatus= Convert.ToString(reader["ESTATUS_ALMACEN"]);
+                    if (_almEstatus == "A")
+                        _estatus = 0;
+                    else if (_almEstatus == "B")
+                        _estatus = 1;
+                    else if (_almEstatus == "C")
+                        _estatus = 2;
+                    cBEstatusBodega.SelectedIndex = _estatus;
+                }
+                reader.Close();
+                cmdm.Dispose();
+                cn.Desconectar();
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(Ex.Message, "Error");
+            }
+        }
+        private void CargarAlmacen(ComboBox cBAlmacen)
+        {
+            ConexionSql cn = new ConexionSql();
+            try
+            {
+                cn.ConectarSQLServer();
+                //consulta
+                //cn.ConectarMicrosip("FRIMEX_COMPRAS");
+                // Insertar Orden de compra
+                //_FolioOrdenCompra;
+                // Insertar Encabezado
+                cBAlmacen.DataSource = null;
+                string cadena = "select INVENTARIO_FRIMEX_ID,ALMACEN_MSP_DESCRIPCION " +
+                    " from INVENTARIO_FRIMEX as infr " +                   
+                    " where ESTATUS = 'A'";
+                DataTable Table = new DataTable();
+                SqlCommand cmdm = new SqlCommand(cadena, cn.SC);
+                cmdm.ExecuteNonQuery();
+                // FbDataReader readerm = cmdm.ExecuteReader();
+                SqlDataAdapter DA = new SqlDataAdapter(cadena, cn.SC);
+                DA.Fill(Table);
+                if (Table != null)
+                {
+                    cBAlmacen.DataSource = Table.DefaultView;
+                    cBAlmacen.ValueMember = "INVENTARIO_FRIMEX_ID";
+                    cBAlmacen.DisplayMember = "ALMACEN_MSP_DESCRIPCION";
+                }
+                DA.Dispose();
+                cmdm.Dispose();
+                cn.Desconectar();
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(Ex.Message, "Error");
+            }
+        }
+
+        private void butAgregar_Click(object sender, EventArgs e)
+        {
+            UsuariosC nuevo_usuario = new UsuariosC();
+            string msj = "";
+            mensaje_error = "";
+            try
+            {
+
+                //Set values:
+                string _fecha = DateTime.Now.Date.Day.ToString() + "/" + DateTime.Now.Date.Month.ToString() + "/" + DateTime.Now.Date.Year.ToString() + " " + DateTime.Now.Date.TimeOfDay.Hours + ":" + DateTime.Now.Date.TimeOfDay.Minutes + ":" + DateTime.Now.Date.TimeOfDay.Seconds;
+                nuevo_usuario.NOMBRE = txtNombre.Text;
+                nuevo_usuario.APELLIDOP = tBApellidoP.Text;
+                nuevo_usuario.APELLIDOM = tBApellidoM.Text;
+                nuevo_usuario.USUARIO = txtNomUser.Text;
+                nuevo_usuario.CONTRASEÑA = maskedPass.Text;
+                //nuevo_usuario.EMAIL = txt.Text;
+                //nuevo_usuario.TELEFONO = txt_usu_tel.Text;
+                nuevo_usuario.TIPO_USU_ID = nuevo_usuario.OBTENER_TIPO_USU_ID(Convert.ToString(cBTipoUsuario.SelectedItem), out mensaje_error);
+                nuevo_usuario.FECHACREACION = _fecha;
+                nuevo_usuario.USUARIOCREADOR = 1;
+
+
+                if (!String.IsNullOrEmpty(mensaje_error))
+                    mensajes.Error(mensaje_error, titulo_modulo);
+
+                else
+                {
+                    if (butAgregar.Text.Equals("Agregar Usuario"))
+                    {
+                        //Aqui va la consulta:
+                        nuevo_usuario.ESTATUS = 'A';
+                        msj = nuevo_usuario.Nuevo_Usuario(nuevo_usuario, out mensaje_error);
+
+                        if (!String.IsNullOrEmpty(mensaje_error))
+                            mensajes.Error(mensaje_error, titulo_modulo);
+                        else
+                        {
+                            mensajes.Exito(msj, titulo_modulo);
+                            dgvUsuarios = nuevo_usuario.MostrarUsuarios(dgvUsuarios, out mensaje_error);
+                        }
+                    }
+
+                    else if (butAgregar.Text.Equals("Modificar"))
+                    {
+                        //Aqui va la consulta:
+                        if (cbEstatusUsu.SelectedIndex == 0)
+                            nuevo_usuario.ESTATUS = 'A';
+                        else if (cbEstatusUsu.SelectedIndex == 0)
+                            nuevo_usuario.ESTATUS = 'B';
+
+                        msj = nuevo_usuario.Actualizar_Usuario(nuevo_usuario, out mensaje_error, selected_item);
+
+                        if (!String.IsNullOrEmpty(mensaje_error))
+                            mensajes.Error(mensaje_error, titulo_modulo);
+                        else
+                        {
+                            mensajes.Exito(msj, titulo_modulo);
+                            dgvUsuarios = nuevo_usuario.MostrarUsuarios(dgvUsuarios, out mensaje_error);
+                        }
+                    }
+                    else if (butAgregar.Text.Equals("Dar de Baja"))
+                    {
+                        //Aqui va la consulta:
+                        msj = nuevo_usuario.Baja_Usuario(nuevo_usuario, out mensaje_error, selected_item);
+
+                        if (!String.IsNullOrEmpty(mensaje_error))
+                            mensajes.Error(mensaje_error, titulo_modulo);
+                        else
+                        {
+                            mensajes.Exito(msj, titulo_modulo);
+                            dgvUsuarios = nuevo_usuario.MostrarUsuarios(dgvUsuarios, out mensaje_error);
+                        }
+
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                mensajes.Error(ex.Message, titulo_modulo);
+            }
+
+        }
+
+        private void FCon_Load(object sender, EventArgs e)
+        {
+            UsuariosC usu = new UsuariosC();
+            cBTipoUsuario = usu.MostrarTiposUsuario(cBTipoUsuario, out mensaje_error);
+            dgvUsuarios = usu.MostrarUsuarios(dgvUsuarios, out mensaje_error);
+
+            ConexionMicrosip con_msp = new ConexionMicrosip();
+            ConexionSql con_sql = new ConexionSql();
+            RegistrosWindows registros = new RegistrosWindows();
+
+            registros.LeerRegistros("SOFTWARE\\SOTI\\FrimexProduccion");
+
+            textBUserMicro.Text = registros.MICRO_USER;
+            maskedPassMicro.Text = registros.MICRO_PASS;
+            txtRootMicro.Text = registros.MICRO_ROOT;
+            txtBDMicro.Text = registros.MICRO_BD;
+            txtServerMicro.Text = registros.MICRO_SERVER;
+
+            txtUserMSSql.Text = registros.SQL_USUARIO;
+            maskedPassMSSql.Text = registros.SQL_PASSWORD;
+            txtBDSQL.Text = registros.SQL_BD;
+            txtServerMSSql.Text = registros.SQL_SERVIDOR;
+        }
+
+        private void butProbConexionF_Click(object sender, EventArgs e)
+        {
+            //message box para conexion exitosa o error
+            try
+            {
+                ConexionMicrosip ConexionMicro = new ConexionMicrosip();
+                ConexionMicro.ConectarMicrosip(txtBDMicro.Text);
+                ConexionMicro.Desconectar();
+                MessageBox.Show("Conexion Exitosa");
+            }
+            catch (Exception ex)
+            {
+                 MessageBox.Show("Error de conexion\n" + ex.Message, "Error de conexion", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+            }
+        }
+
+        private void butProbConexionMS_Click(object sender, EventArgs e)
+        {
+            ConexionSql ConexionSQL = new ConexionSql();
+            //message box para conexion exitosa o error
+            try
+            {
+                ConexionSQL.ConectarSQLServer();
+                SqlCommand sc = new SqlCommand("select * from usuarios_t", ConexionSQL.SC);
+                ConexionSQL.Desconectar();
+                sc.Connection.Open();
+                //if (sc.Connection.State.ToString() == "Open")                     
+                MessageBox.Show("Conexion Exitosa");
+                ConexionSQL.Desconectar();
+            }
+            catch (Exception ex)
+            {
+                ConexionSQL.Desconectar();
+                 MessageBox.Show("Error de conexion\n" + ex.Message, "Error de conexion", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+            }
+        }
+    }
+}

@@ -1,0 +1,728 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+
+namespace FrimexTransferencia
+{
+    public partial class FSalTra : Form
+    {
+        public FSalTra()
+        {
+            InitializeComponent();
+        }
+        PuertosSerie _PuertoSerie = new PuertosSerie();
+        public UsuariosC _Usuario = new UsuariosC();
+        public int _ReqID = 0;
+        private DataTable _DATOSREQ = new DataTable();
+        Mensajes mensajes = new Mensajes();
+        bool _basculaConectada = false, _activa = false;
+        private void bEmbarcar_Click(object sender, EventArgs e)
+        {
+            ConexionSql cn = new ConexionSql();
+            SqlTransaction transaction;
+            int SS_Agregados = 0;
+            cn.ConectarSQLServer();
+            transaction = cn.SC.BeginTransaction();
+            List<string[,]> __Productos = new List<string[,]>();
+            List<string> _supersacos = new List<string>();
+            string msg_local = "";
+            try
+            {
+                if (dGVSalida.Rows.Count > 0)
+                {
+                    DataRowView _dRVAlmacen = (DataRowView)cBAlmacen.SelectedItem;
+                    string _AlmacenID = _dRVAlmacen.Row.ItemArray[0].ToString()
+                        , _FolioTransferencia = tBFolioSalida.Text.Trim()
+                        , _AlmacenNOmbre = _dRVAlmacen.Row.ItemArray[1].ToString()
+                        , _AlmacenDestino = Convert.ToString(_DATOSREQ.Rows[0]["ALMACEN_DESTINO_ID"]);
+                    string consulta = "INSERT INTO [dbo].[TRANSFERENCIA] " +
+                   " ([TRANSFERENCIA_ID] " +
+                   " ,[TRANSFERENCIA_FECHA] " +
+                   " ,[TRANSFERENCIA_ESTATUS] " +
+                   " ,[ALMACEN_ORIGEN_ID] " +
+                   " ,[ALMACEN_DESTINO_ID]) " +
+                    " VALUES " +
+                   " ( " + _FolioTransferencia +
+                   " ,'" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + "'" +
+                   " ,'A'" +
+                   " , " + _AlmacenID +
+                   " ," + _AlmacenDestino + ")";// Consulta para insertar el encabezado de la transferencia
+
+                    SqlCommand cmdm = new SqlCommand(consulta, cn.SC, transaction);
+                    if (cmdm.ExecuteNonQuery() > 0)
+                    {
+                        for (int i = 0; dGVSalida.Rows.Count > i; i++)
+                        {
+                            string _supersaco = Convert.ToString(dGVSalida["SUPERSACOID", i].Value);
+                            _supersacos.Add(_supersaco);
+                            if (!ExisteSupersacoEnTransferencia(_supersaco, _FolioTransferencia, cn, transaction))
+                            {
+                                consulta = "INSERT INTO [dbo].[TRANSFERENCIA_DETALLE] " +
+                                   " ([TRANSFERENCIA_ID]" +
+                                   ",[SUPERSACO_ID]) " +
+                                    " VALUES " +
+                                   " (" + _FolioTransferencia +
+                                   ", " + _supersaco + ")";// Consulta para insertar el detalle de la transferencia
+
+                                cmdm = new SqlCommand(consulta, cn.SC, transaction);
+                                if (cmdm.ExecuteNonQuery() > 0)
+                                {
+                                    SS_Agregados++;
+                                }
+                            }
+                        }
+                        consulta = "INSERT INTO [dbo].[REQ_TRA] " +
+                            " ([REQUISICION_ID] " +
+                            " ,[TRANSFERENCIA_ID] " +
+                            " ,[REQ_TRA_FECHA] " +
+                            " ,[REQ_TRA_USUARIO_ID]) " +
+                            " VALUES " +
+                            " (" + _ReqID +
+                            " , " + _FolioTransferencia +
+                            " , '" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + "'" +
+                            " ," + _Usuario.USUARIOID + ")";
+                        cmdm = new SqlCommand(consulta, cn.SC, transaction);
+                        cmdm.ExecuteNonQuery();
+                        //Imprimir en Etiqueta 4X4
+                        if (_AlmacenDestino == "1221")
+                            _AlmacenDestino = "ALMACEN GENERAL";
+                        else if (_AlmacenDestino == "1222")
+                            _AlmacenDestino = "BODEGA RENTADA";
+                        else if (_AlmacenDestino == "1223")
+                            _AlmacenDestino = "TANQUES";
+
+                        FImpTra fImpTra = new FImpTra();
+                        fImpTra.Usuario = _Usuario;
+                        fImpTra._Productos = SupersacosEnGrid();
+                        fImpTra._BodegaNombre = _AlmacenNOmbre;
+                        fImpTra._DestinoNombre = _AlmacenDestino;
+                        fImpTra._NoTransferencia = _FolioTransferencia;
+                        fImpTra.ShowDialog();
+                        transaction.Commit();
+                        CRequisiciones requisiciones = new CRequisiciones();
+                        requisiciones.ActualizarFolioTrasferencia(_supersacos,Convert.ToInt32(_FolioTransferencia),out msg_local);
+                    }
+                    else
+                        transaction.Rollback();
+                    cmdm.Dispose();
+                    cn.Desconectar();
+                    MessageBox.Show("Se agregaron " + SS_Agregados + " a la salida por transferencia " + _FolioTransferencia);
+                    DesconectarBascula();
+                    this.Close();
+                }
+                else
+                    MessageBox.Show("No hay supersacos para realizar la salida", "Error");                
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(Ex.Message, "Error");
+                transaction.Rollback();
+                cn.Desconectar();
+            }
+        }
+        private List<string[,]> SupersacosEnGrid()
+        {
+            List<string[,]> _SS = new List<string[,]>();
+            int cont = 0;
+            DataGridView _auxTablaDatos = dGVSalida;
+            //DataTable _auxTablaDatos =(DataTable) dGVSalida.DataSource;
+            for (int i =0; _auxTablaDatos.Rows.Count!=0; i++)
+            {
+                if (_SS.Count==0)
+                {
+                    string[,] aux =new string[1, 2];
+                    string _producto = Convert.ToString(_auxTablaDatos["PRODUCTO",i].Value);
+                    for(int j=0; _auxTablaDatos.Rows.Count !=0; j++)
+                    {
+                        if (_producto == Convert.ToString(_auxTablaDatos["PRODUCTO", 0].Value))
+                        {
+                            cont++;
+                            _auxTablaDatos.Rows.RemoveAt(0);
+                        }
+                    }
+                    aux[0, 0] = cont.ToString();
+                    aux[0, 1] = _producto;
+                    _SS.Add(aux);                    
+                }else
+                {
+                    string[,] aux = new string[1, 2];
+                    string _producto = Convert.ToString(_auxTablaDatos["PRODUCTO", i].Value);
+                    for (int j = 0; _auxTablaDatos.Rows.Count !=0; j++)
+                    {
+                        if (_producto == Convert.ToString(_auxTablaDatos["PRODUCTO", 0].Value))
+                        {
+                            cont++;
+                            _auxTablaDatos.Rows.RemoveAt(0);
+                        }
+                    }
+                    aux[0, 0] = cont.ToString();
+                    aux[0, 1] = _producto;
+                    _SS.Add(aux);
+                }
+            }
+            return _SS;
+        }
+        private void Limpiar()
+        {
+            dGVSalida.Rows.Clear();
+            tBSupersacoID.Text = "";
+            CargarSiguienteFolio();
+        }
+        private bool ExisteSupersacoEnTransferencia(string SUPERSACO_ID,string TRANSFERENCIA_ID,ConexionSql cn,SqlTransaction transaction)
+        {
+            bool _existe = false;
+            try
+            {
+                string consulta = "select * from transferencia_detalle " +
+                    " where " +
+                    " transferencia_id = " +TRANSFERENCIA_ID +
+                    " and SUPERSACO_id=" + SUPERSACO_ID;
+
+                SqlCommand cmdm = new SqlCommand(consulta, cn.SC,transaction);
+                SqlDataReader reader = cmdm.ExecuteReader();
+                if (reader.HasRows)
+                    _existe = true;
+                else
+                    _existe = false;
+                reader.Close();
+                cmdm.Dispose();
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(Ex.Message, "Error");
+            }
+            return _existe;
+        }
+        private void FSalTra_Load(object sender, EventArgs e)
+        {
+            string msg_local = "";
+            CRequisiciones requisiciones = new CRequisiciones();
+            _DATOSREQ = requisiciones.CargarDatosRequisicion(this._ReqID,out msg_local);
+            CargarAlmacenes();
+            CargarSiguienteFolio();
+        }
+        private void CargarSiguienteFolio()
+        {
+            ConexionSql cn = new ConexionSql();
+            try
+            {
+                cn.ConectarSQLServer();
+                string cadena = "select COUNT(TRANSFERENCIA_ID)+1 AS SIGUIENTE_FOLIO from transferencia", _folio="";
+                SqlCommand cmdm = new SqlCommand(cadena, cn.SC);
+               SqlDataReader reader= cmdm.ExecuteReader();
+                while (reader.Read())
+                    _folio = Convert.ToString(reader["SIGUIENTE_FOLIO"]);
+                cmdm.Dispose();
+                cn.Desconectar();
+                tBFolioSalida.Text = _folio;
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(Ex.Message, "Error");
+            }
+        }
+        private void CargarAlmacenes()
+        {
+            ConexionSql cn = new ConexionSql();
+            try
+            {
+                cn.ConectarSQLServer();
+                cBAlmacen.DataSource = null;
+                string cadena = "select INVENTARIO_FRIMEX_ID,ALMACEN_MSP_DESCRIPCION " +
+                    " from INVENTARIO_FRIMEX as infr " +
+                    " inner join USU_ALM as ua on infr.INVENTARIO_FRIMEX_ID = ua.ALMACEN_ID " +
+                    " where USU_ALM_ESTATUS = 'A' and USU_ALM_ID = " + _Usuario.USUARIOID;
+                DataTable Table = new DataTable();
+                SqlCommand cmdm = new SqlCommand(cadena, cn.SC);
+                cmdm.ExecuteNonQuery();
+                SqlDataAdapter DA = new SqlDataAdapter(cadena, cn.SC);
+                DA.Fill(Table);
+                if (Table != null)
+                {
+                    cBAlmacen.DataSource = Table.DefaultView;
+                    cBAlmacen.ValueMember = "INVENTARIO_FRIMEX_ID";
+                    cBAlmacen.DisplayMember = "ALMACEN_MSP_DESCRIPCION";
+                }
+                DA.Dispose();
+                cmdm.Dispose();
+                cn.Desconectar();
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(Ex.Message, "Error");
+            }
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Agregar();
+        }
+        private bool ValidarPesoSupersaco(string SUPERSACOID,double PESO_NUEVO,out string msg)
+        {
+            bool _exito = false;
+            string  msg_local="",consulta="";
+            ConexionSql cn = new ConexionSql();
+            try
+            {
+                int _almacenID = 0;
+                double _pesoSS = 0.0;
+                consulta = "select SUPERSACO_ID, PRODUCTO_ID, SUPERSACO_CANTIDAD,INVENTARIO_SUPERSACO_ID " +
+                    " from SUPERSACO where " +
+                    " SUPERSACO_ID = " + SUPERSACOID;
+                cn.ConectarSQLServer();
+                SqlCommand cmdm = new SqlCommand(consulta, cn.SC);
+                SqlDataReader reader = cmdm.ExecuteReader();
+                while (reader.Read())
+                {
+                    _pesoSS = Convert.ToDouble(reader["SUPERSACO_CANTIDAD"]);
+                    _almacenID = Convert.ToInt32(reader["INVENTARIO_SUPERSACO_ID"]);
+                }
+                if (_pesoSS - 10 <= PESO_NUEVO || _pesoSS + 10 >= PESO_NUEVO)
+                {
+                    _exito = true;
+                    CRequisiciones requisiciones = new CRequisiciones();
+                    requisiciones.ActualizarPesoSS(Convert.ToInt32(SUPERSACOID),PESO_NUEVO,_almacenID,0,out msg_local);
+                }
+                else
+                    _exito = false;
+                cmdm.Dispose();
+                cn.Desconectar();
+            }
+            catch (Exception Ex)
+            {
+                msg_local = Ex.Message;
+            }
+
+            msg = msg_local;
+            return _exito;
+        }
+        private bool ValidarCantidadSupersacosEnTransferenciasPrevias(int REQUISICIONID,int PRODUCTOID,int CANT_SS ,out string msg)
+        {
+            bool _exito = false;
+            string consulta = "", msg_local = "";
+            ConexionSql cn = new ConexionSql();
+            try
+            {
+                consulta = "select RD.PRODUCTO_ID,RD.REQUISICION_DETALLE_CANTIDAD,TD.TRANSFERENCIA_ID,Count(p.PRODUCTO_ID) as CANT_SACOS,p.PRODUCTO_ID,p.PRODUCTO_DESCRIPCION " +
+                    " from REQ_TRA as RT" +
+                    " inner join REQUISICION as R on RT.REQUISICION_ID = R.REQUISICION_ID" +
+                    " inner join REQUISICION_DETALLE as RD on RD.REQUISICION_ID=R.REQUISICION_ID" +
+                    " inner join TRANSFERENCIA as T on RT.TRANSFERENCIA_ID = T.TRANSFERENCIA_ID" +
+                    " inner join TRANSFERENCIA_DETALLE as TD on RT.TRANSFERENCIA_ID = TD.TRANSFERENCIA_ID" +
+                    " inner join SUPERSACO as S on Td.SUPERSACO_ID = S.SUPERSACO_ID" +
+                    " inner join PRODUCTO as P on S.PRODUCTO_ID = P.PRODUCTO_ID" +
+                    " where RT.REQUISICION_ID=" + REQUISICIONID + " AND R.REQUISICION_ESTATUS='A'" +
+                    " group by RD.PRODUCTO_ID,RD.REQUISICION_DETALLE_CANTIDAD,TD.TRANSFERENCIA_ID,p.PRODUCTO_ID,p.PRODUCTO_DESCRIPCION";
+                cn.ConectarSQLServer();
+                //SqlCommand cmdm = new SqlCommand(consulta, cn.SC);
+                DataTable _DATOS = new DataTable();
+                SqlDataAdapter _DA=new SqlDataAdapter(consulta, cn.SC);
+                _DA.Fill(_DATOS);
+                //cmdm.Dispose();
+                _DA.Dispose();
+                cn.Desconectar();
+                if (_DATOS.Rows.Count == 0)
+                {
+                    cn.ConectarSQLServer();
+                    consulta = "select RD.PRODUCTO_ID,RD.REQUISICION_DETALLE_CANTIDAD " +
+                        " from REQUISICION as R " +
+                        " inner join REQUISICION_DETALLE as RD on RD.REQUISICION_ID = R.REQUISICION_ID " +
+                        " where R.REQUISICION_ID =  " + REQUISICIONID  +" AND R.REQUISICION_ESTATUS = 'A' " +
+                        " group by RD.PRODUCTO_ID,RD.REQUISICION_DETALLE_CANTIDAD";
+                    SqlCommand cmdm = new SqlCommand(consulta, cn.SC);
+                    SqlDataReader reader = cmdm.ExecuteReader();
+                    if(reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            int _SSSolicitados = Convert.ToInt32(reader["REQUISICION_DETALLE_CANTIDAD"]);
+                            if (_SSSolicitados >= CANT_SS+1)
+                                _exito = true;
+                            else
+                            {
+                                _exito = false;
+                                msg_local = "Meta de supersacos solicitados alcanzada";
+                            }
+                        }
+                    }
+                }
+                else if (_DATOS.Rows.Count >0)
+                {
+                    foreach(DataRow _datos in _DATOS.Rows)
+                    {
+                        int _AuxPRODID = Convert.ToInt32(_datos["PRODUCTO_ID"]);
+                        if(_AuxPRODID==PRODUCTOID)
+                        {
+                            int _CantSacos= Convert.ToInt32(_datos["CANT_SACOS"])+CANT_SS+1,
+                                _SacosSol = Convert.ToInt32(_datos["REQUISICION_DETALLE_CANTIDAD"]);
+                            if ( _CantSacos > _SacosSol)                            
+                                _exito = false;                            
+                            else
+                                _exito = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                msg_local = Ex.Message;
+            }
+
+            msg = msg_local;
+            return _exito;
+        }
+        private void Agregar()
+        {
+            ConexionSql cn = new ConexionSql();
+            try
+            {
+                string aux = "",_datoRecib="";
+                cn.ConectarSQLServer();
+                string consulta = "", _AlmacenID = "", _SuperSacoID = "", _Producto_desc="",_Producto_id = "", msg_local = "";
+                _SuperSacoID = tBSupersacoID.Text.Trim();
+                CRequisiciones requisiciones = new CRequisiciones();
+                if (_SuperSacoID.Length > 0)
+                {
+                    //Validar que el folio no este en el grid
+                    DataTable _DatosSS = requisiciones.CargarDatosSupersaco(_SuperSacoID, out msg_local);
+                    
+                    _Producto_id = Convert.ToString(_DatosSS.Rows[0]["PRODUCTO_MSP_ID"]);
+                    _Producto_desc = Convert.ToString(_DatosSS.Rows[0]["PRODUCTO_DESCRIPCION"]);
+                    if (BuscarProducto(_Producto_id))
+                    {
+                        //buscar si hay otras transferencias y validar supersacos restantes
+                        DataRowView _dRVAlmacen = (DataRowView)cBAlmacen.SelectedItem;
+                        _AlmacenID = _dRVAlmacen.Row.ItemArray[0].ToString();
+                        int SS_EN_GRID = CantidadSupersacoProd(_Producto_desc);
+                        //string bodega = Convert.ToString(_DATOSREQ.Rows[0]["INVENTARIO_FRIMEX_ID"]);
+                        if (ValidaAlmacenSS(_SuperSacoID, _AlmacenID))
+                        {
+                            if (ValidarCantidadSupersacosEnTransferenciasPrevias(_ReqID, Convert.ToInt32(_Producto_id), SS_EN_GRID, out msg_local))
+                            {
+                                if (_basculaConectada == true)
+                                {
+                                    double _PesoSS = 0.0;
+                                    _datoRecib = _PuertoSerie.DatoRecibido();
+                                        aux= ValidarDigitos(_datoRecib);
+                                    //mensajes.Informacion("dato recibido "+_datoRecib,"informacion");
+                                    //aux= ValidarDigitos(_PuertoSerie.DatoRecibido());
+                                    decimal valor;
+                                    if (Decimal.TryParse(aux, out valor))
+                                    {
+                                        _PesoSS = Convert.ToDouble(valor);
+                                        if (_PesoSS > 0)
+                                        {
+                                            if (!BuscarEnGrid(_SuperSacoID))
+                                                {
+                                                if (ValidarPesoSupersaco(_SuperSacoID, _PesoSS, out msg_local))
+                                                {
+
+                                                    //Comparar peso guardado con peso actual
+
+                                                    consulta = "Select ifx.ALMACEN_MSP_DESCRIPCION,iss.INVENTARIO_SUPERSACO_ID,s.SUPERSACO_ID,p.PRODUCTO_DESCRIPCION,SUPERSACO_CANTIDAD from SUPERSACO as s " +
+                                                        " inner join INVENTARIO_SUPERSACO as iss on s.INVENTARIO_SUPERSACO_ID = s.INVENTARIO_SUPERSACO_ID " +
+                                                        " inner join INVENTARIO_FRIMEX as ifx on iss.INVENTARIO_FRIMEX_ID = ifx.INVENTARIO_FRIMEX_ID " +
+                                                        " inner join PRODUCTO as p on s.PRODUCTO_ID = p.PRODUCTO_ID or s.PRODUCTO_ID = p.PRODUCTO_MSP_ID " +
+                                                        " where iss.INVENTARIO_FRIMEX_ID = " + _AlmacenID + " and s.SUPERSACO_ESTATUS='A' and s.SUPERSACO_ID = " + _SuperSacoID;
+
+                                                    SqlCommand cmdm = new SqlCommand(consulta, cn.SC);
+                                                    SqlDataReader reader = cmdm.ExecuteReader();
+                                                    string _supersacosID = "";
+                                                    int i = dGVSalida.Rows.Count;
+                                                    if (reader.HasRows)
+                                                        while (reader.Read())
+                                                        {
+                                                            dGVSalida.Rows.Add();
+                                                            _supersacosID = Convert.ToString(reader["SUPERSACO_ID"]);
+                                                            dGVSalida["SUPERSACOID", i].Value = _supersacosID;
+                                                            dGVSalida["PRODUCTO", i].Value = Convert.ToString(reader["PRODUCTO_DESCRIPCION"]);
+                                                            dGVSalida["CANTIDAD", i].Value = Convert.ToString(reader["SUPERSACO_CANTIDAD"]);
+                                                            dGVSalida["QUITAR", i].Value = "QUITAR";
+                                                            i++;
+                                                        }
+                                                    cmdm.Dispose();
+                                                    cn.Desconectar();
+                                                    mensajes.Exito("Se agregó el supersaco \""+ _SuperSacoID +"\" " , "");
+                                                }
+                                                else
+                                                mensajes.Error("Peso de supersaco incorrecto", "Error");
+                                            }
+                                            else
+                                                    mensajes.Error("El supersaco ya fue agregado en esta salida de transferencia", "Error");
+                                        }
+                                        //else
+                                        //mensajes.Error("Valor de báscula no capturado", "Error");
+                                    }
+                                    else
+                                        mensajes.Error("Error al leer la báscula, favor de reintentar "+"\r\nDato recibido: "+_datoRecib+"\n\rConversion a decimal"+aux, "Error");
+                                }
+                                else
+                                    mensajes.Error("Báscula no conectada", "Error");
+                            }
+                            else
+                                mensajes.Error("El producto completado en esta transferencia o anteriores", "Error");
+                        }
+                        else
+                            mensajes.Error("El supersaco no pertenece a este almacen", "Error");
+                    }
+                    else
+                        mensajes.Error("El producto no coresponde con lo solicitado en la requisición", "Error");
+                }
+                else
+                    mensajes.Error("Favor de especificar el supersaco", "Error");
+                tBSupersacoID.Text = "";
+                aux = "";
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(Ex.Message, "Error");
+            }
+        }
+        private string ValidarDigitos(string CADENA)
+        {
+            string resultado = "";
+            try
+            {
+                for (int i = 0; i < CADENA.Length; i++)
+                {
+                    if (char.IsDigit(CADENA[i]) || CADENA[i] == '.')
+                        resultado += CADENA[i];
+                }
+            }
+            catch
+            {
+            }
+            return resultado;
+        }
+        private void tBSupersacoID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                Agregar();
+            }
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
+            {
+                e.Handled = true;
+                return;
+            }
+            // revisar que solo haya un punto permitido //checks to make sure only 1 decimal is allowed
+            
+        }
+        private void dGVSalida_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int _fila = e.RowIndex, _columna = e.ColumnIndex;
+            if(_fila >=0 &&_columna >=0)
+            {
+                string _contenido = Convert.ToString(dGVSalida[_columna, _fila].Value),
+                    _ss=Convert.ToString(dGVSalida["SUPERSACOID", _fila].Value),
+                    _prod=Convert.ToString(dGVSalida["PRODUCTO", _fila].Value);
+                DialogResult _respuesta;
+                if (_contenido == "QUITAR")
+                {
+                    _respuesta = MessageBox.Show("¿Desea quitar el supersaco "+_ss+" del producto\n\r"+_prod+"?","Confirmación",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+                    if (_respuesta==DialogResult.Yes)
+                    {
+                        FAutorizacion autorizacion = new FAutorizacion();
+                        autorizacion.TipoAutorizacion = "BODEGUERO";
+                        if (autorizacion.ShowDialog() == DialogResult.Cancel)
+                        {
+                            if (autorizacion.TIPO_USU_ID == 2)
+                            {
+                                dGVSalida.Rows.RemoveAt(_fila);
+                            }
+                            else
+                                mensajes.Error("Usuario no válido","Error");
+                        }
+                    }
+                }
+            }
+        }
+        private bool BuscarEnGrid(string SUPERSACO_ID)
+        {
+            bool _existe = false;
+            for (int i =0;dGVSalida.RowCount> i;i++)
+            {
+                string aux = Convert.ToString(dGVSalida["SUPERSACOID", i].Value);
+                if(SUPERSACO_ID==aux)
+                {
+                    _existe = true;
+                    break;
+                }
+            }
+            return _existe;
+        }
+        private bool BuscarProducto(string PRODUCTO_ID)
+    {
+        bool _existe = false;
+        foreach(DataRow fila in  _DATOSREQ.Rows)
+            {
+                string aux = Convert.ToString(fila["PRODUCTO_MSP_ID"]);
+                if (PRODUCTO_ID == aux)
+                {
+                    _existe = true;
+                    break;
+                }
+            }
+        return _existe;
+    }
+        private int CantidadSupersacoProd(string PRODUCTO_ID)
+        {
+            int _CantProd = 0;
+            //foreach (DataRow fila in _DATOSREQ.Rows)
+            //{
+            //    string aux = Convert.ToString(fila["PRODUCTO_DESCRIPCION"]);
+            //    if (PRODUCTO_ID == aux)
+            //    {
+            //        _CantProd++;
+            //    }
+            //}
+            for (int i=0;dGVSalida.Rows.Count >i;i++)
+            {
+                string aux = Convert.ToString(dGVSalida["PRODUCTO", i].Value);
+                if (PRODUCTO_ID == aux)
+                {
+                    _CantProd++;
+                }
+            }
+            return _CantProd;
+        }
+        private void conectarBásculaToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            pConectarPuerto.Visible = true;
+        }
+        private void desconectarBásculaToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            tPesobascula.Stop();
+            DesconectarBascula();
+        }
+        private void DesconectarBascula()
+        {
+            try
+            {
+                if (this._basculaConectada == true)
+                {
+                    if (_PuertoSerie.EstaConectado)
+                    {
+                        _PuertoSerie.DesconectarPuertoSerie();
+                        MessageBox.Show("Báscula desconectada");
+                        desconectarBásculaToolStripMenuItem.Visible = false;
+                        conectarBásculaToolStripMenuItem.Visible = true;
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(Ex.Message, "Error");
+            }
+        }
+        private void salirToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void bBuscarPuertos_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                if (bBuscarPuertos.Text == "Buscar Puertos ")
+                {
+                    List<string> _listaPuertos;
+                    if (_PuertoSerie.BuscarPuertos(out _listaPuertos) == true)
+                    {
+                        for (int i = 0; i < _listaPuertos.Count; i++)
+                            cBPuertosDisponibles.Items.Add(_listaPuertos[i]);
+                        bBuscarPuertos.Text = "Conectar Puerto";
+                        List<string> _PuertosDisponibles = new List<string>();
+                        _PuertoSerie.BuscarPuertos(out _PuertosDisponibles);
+                        cBPuertosDisponibles.SelectedIndex = 0;
+                        
+                    }
+                    else
+                        MessageBox.Show("Sin puertos disponibles", "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                }
+                else if (bBuscarPuertos.Text == "Conectar Puerto")
+                {
+                    _PuertoSerie.ConectarPuerto(cBPuertosDisponibles.SelectedItem.ToString(), "9600");
+                    bool _conexion = false;
+
+                    if (_PuertoSerie.EstaConectado)
+                    {
+                        _conexion = true;
+                        MessageBox.Show("Báscula conectada");
+                        pConectarPuerto.Visible = false;
+                        conectarBásculaToolStripMenuItem.Visible = false;
+                        desconectarBásculaToolStripMenuItem.Visible = true;
+                        //tPesobascula.Enabled = true;
+                        //tPesobascula.Interval = 100;
+                        ////tPesobascula += new EventHandler(tPesobascula_Tick(sender,e));
+                        //tPesobascula.Start();
+                    }
+                    else
+                        _conexion = false;
+
+                    if (_conexion == true)
+                        _basculaConectada = true;
+                    else
+                        _basculaConectada = false;
+                }
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(Ex.Message, "Error");
+            }
+        }
+        private void FSalTra_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (_PuertoSerie.EstaConectado)
+            {
+                MessageBox.Show("Favor de desconectar el puerto serie", "Informacion");
+                e.Cancel = true;
+            }
+        }
+
+        private void tPesobascula_Tick(object sender, EventArgs e)
+        {
+            lPesoBascula.Text = "";
+                lPesoBascula.Text= ValidarDigitos(_PuertoSerie.DatoRecibido());
+            int i = 0;
+        }
+
+        private bool ValidaAlmacenSS(string SUPERSACOID,string INVENTARIOID)
+        {
+            bool _existe = false;
+            string msg_local = "", consulta = "";
+            ConexionSql cn = new ConexionSql();
+            try
+            {
+                string _inventarioID = "";
+                consulta = "select SUPERSACO_ID,iss.INVENTARIO_FRIMEX_ID, PRODUCTO_ID, SUPERSACO_CANTIDAD  "+
+                    " from SUPERSACO as s "+
+                    " inner join INVENTARIO_SUPERSACO as ISS on s.INVENTARIO_SUPERSACO_ID = iss.INVENTARIO_SUPERSACO_ID " +
+                    " where s.SUPERSACO_ID = " + SUPERSACOID;
+                cn.ConectarSQLServer();
+                SqlCommand cmdm = new SqlCommand(consulta, cn.SC);
+                SqlDataReader reader = cmdm.ExecuteReader();
+                while (reader.Read())
+                    _inventarioID = Convert.ToString(reader["INVENTARIO_FRIMEX_ID"]);
+                cmdm.Dispose();
+                cn.Desconectar();
+                if (_inventarioID == INVENTARIOID)                
+                    _existe = true;                
+                else
+                    _existe = false;
+            }
+            catch (Exception Ex)
+            {
+                msg_local = Ex.Message;
+            }
+
+            return _existe;
+        }
+    }
+}

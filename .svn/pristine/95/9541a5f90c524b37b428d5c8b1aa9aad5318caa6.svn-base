@@ -1,0 +1,204 @@
+﻿namespace FrimexTransferencia
+{
+    partial class FSalTra
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.label1 = new System.Windows.Forms.Label();
+            this.tBSupersacoID = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dGVSalida = new System.Windows.Forms.DataGridView();
+            this.SUPERSACOID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PRODUCTO = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CANTIDAD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.QUITAR = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.bEmbarcar = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tBFolioSalida = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dGVSalida)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 31);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(66, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Súper Saco ";
+            // 
+            // tBSupersacoID
+            // 
+            this.tBSupersacoID.Location = new System.Drawing.Point(84, 28);
+            this.tBSupersacoID.Name = "tBSupersacoID";
+            this.tBSupersacoID.Size = new System.Drawing.Size(100, 20);
+            this.tBSupersacoID.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 54);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(166, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Supersacos agregados a la salida";
+            // 
+            // dGVSalida
+            // 
+            this.dGVSalida.AllowUserToAddRows = false;
+            this.dGVSalida.AllowUserToDeleteRows = false;
+            this.dGVSalida.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dGVSalida.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGVSalida.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.SUPERSACOID,
+            this.PRODUCTO,
+            this.CANTIDAD,
+            this.QUITAR});
+            this.dGVSalida.Location = new System.Drawing.Point(15, 70);
+            this.dGVSalida.Name = "dGVSalida";
+            this.dGVSalida.ReadOnly = true;
+            this.dGVSalida.RowHeadersVisible = false;
+            this.dGVSalida.Size = new System.Drawing.Size(368, 337);
+            this.dGVSalida.TabIndex = 3;
+            // 
+            // SUPERSACOID
+            // 
+            this.SUPERSACOID.FillWeight = 55F;
+            this.SUPERSACOID.HeaderText = "SS Id";
+            this.SUPERSACOID.Name = "SUPERSACOID";
+            this.SUPERSACOID.ReadOnly = true;
+            // 
+            // PRODUCTO
+            // 
+            this.PRODUCTO.FillWeight = 150F;
+            this.PRODUCTO.HeaderText = "PRODUCTO";
+            this.PRODUCTO.Name = "PRODUCTO";
+            this.PRODUCTO.ReadOnly = true;
+            // 
+            // CANTIDAD
+            // 
+            this.CANTIDAD.FillWeight = 45F;
+            this.CANTIDAD.HeaderText = "CANT.";
+            this.CANTIDAD.Name = "CANTIDAD";
+            this.CANTIDAD.ReadOnly = true;
+            // 
+            // QUITAR
+            // 
+            this.QUITAR.FillWeight = 30F;
+            this.QUITAR.HeaderText = "QUITAR";
+            this.QUITAR.Name = "QUITAR";
+            this.QUITAR.ReadOnly = true;
+            this.QUITAR.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.QUITAR.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // bEmbarcar
+            // 
+            this.bEmbarcar.Location = new System.Drawing.Point(15, 413);
+            this.bEmbarcar.Name = "bEmbarcar";
+            this.bEmbarcar.Size = new System.Drawing.Size(368, 36);
+            this.bEmbarcar.TabIndex = 4;
+            this.bEmbarcar.Text = "Embarcar";
+            this.bEmbarcar.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(190, 26);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(54, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Agregar";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(309, 12);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(74, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Folio de salida";
+            // 
+            // tBFolioSalida
+            // 
+            this.tBFolioSalida.Enabled = false;
+            this.tBFolioSalida.Location = new System.Drawing.Point(283, 28);
+            this.tBFolioSalida.Name = "tBFolioSalida";
+            this.tBFolioSalida.Size = new System.Drawing.Size(100, 20);
+            this.tBFolioSalida.TabIndex = 6;
+            this.tBFolioSalida.Text = "1";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(267, 54);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(61, 13);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Peso Total:";
+            // 
+            // FSalTra
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(392, 450);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.tBFolioSalida);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.bEmbarcar);
+            this.Controls.Add(this.dGVSalida);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.tBSupersacoID);
+            this.Controls.Add(this.label1);
+            this.Name = "FSalTra";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Salida de Súper Sacos";
+            ((System.ComponentModel.ISupportInitialize)(this.dGVSalida)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tBSupersacoID;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridView dGVSalida;
+        private System.Windows.Forms.Button bEmbarcar;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox tBFolioSalida;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SUPERSACOID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PRODUCTO;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CANTIDAD;
+        private System.Windows.Forms.DataGridViewButtonColumn QUITAR;
+        private System.Windows.Forms.Label label4;
+    }
+}

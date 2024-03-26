@@ -1,0 +1,273 @@
+﻿namespace FrimexTransferencia
+{
+    partial class FRegEmb
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.gBOpciones = new System.Windows.Forms.GroupBox();
+            this.rBNacional = new System.Windows.Forms.RadioButton();
+            this.rBImportacion = new System.Windows.Forms.RadioButton();
+            this.gBGenerales = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tBFolioMSP = new System.Windows.Forms.TextBox();
+            this.cBProducto = new System.Windows.Forms.ComboBox();
+            this.bGuardar = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tBCantReciv = new System.Windows.Forms.TextBox();
+            this.gBImportacion = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tBFurgon = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tBTolva = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.gBOpciones.SuspendLayout();
+            this.gBGenerales.SuspendLayout();
+            this.gBImportacion.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // gBOpciones
+            // 
+            this.gBOpciones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gBOpciones.Controls.Add(this.rBImportacion);
+            this.gBOpciones.Controls.Add(this.rBNacional);
+            this.gBOpciones.Location = new System.Drawing.Point(12, 12);
+            this.gBOpciones.Name = "gBOpciones";
+            this.gBOpciones.Size = new System.Drawing.Size(239, 46);
+            this.gBOpciones.TabIndex = 0;
+            this.gBOpciones.TabStop = false;
+            this.gBOpciones.Text = "Tipo de recepción";
+            // 
+            // rBNacional
+            // 
+            this.rBNacional.AutoSize = true;
+            this.rBNacional.Checked = true;
+            this.rBNacional.Location = new System.Drawing.Point(6, 19);
+            this.rBNacional.Name = "rBNacional";
+            this.rBNacional.Size = new System.Drawing.Size(67, 17);
+            this.rBNacional.TabIndex = 0;
+            this.rBNacional.TabStop = true;
+            this.rBNacional.Text = "Nacional";
+            this.rBNacional.UseVisualStyleBackColor = true;
+            // 
+            // rBImportacion
+            // 
+            this.rBImportacion.AutoSize = true;
+            this.rBImportacion.Location = new System.Drawing.Point(153, 19);
+            this.rBImportacion.Name = "rBImportacion";
+            this.rBImportacion.Size = new System.Drawing.Size(80, 17);
+            this.rBImportacion.TabIndex = 1;
+            this.rBImportacion.Text = "Importacion";
+            this.rBImportacion.UseVisualStyleBackColor = true;
+            // 
+            // gBGenerales
+            // 
+            this.gBGenerales.Controls.Add(this.tBCantReciv);
+            this.gBGenerales.Controls.Add(this.label3);
+            this.gBGenerales.Controls.Add(this.cBProducto);
+            this.gBGenerales.Controls.Add(this.tBFolioMSP);
+            this.gBGenerales.Controls.Add(this.label2);
+            this.gBGenerales.Controls.Add(this.label1);
+            this.gBGenerales.Location = new System.Drawing.Point(12, 64);
+            this.gBGenerales.Name = "gBGenerales";
+            this.gBGenerales.Size = new System.Drawing.Size(239, 104);
+            this.gBGenerales.TabIndex = 1;
+            this.gBGenerales.TabStop = false;
+            this.gBGenerales.Text = "Datos generales";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(24, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Folio MSP";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(28, 50);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(50, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Producto";
+            // 
+            // tBFolioMSP
+            // 
+            this.tBFolioMSP.Location = new System.Drawing.Point(85, 21);
+            this.tBFolioMSP.Name = "tBFolioMSP";
+            this.tBFolioMSP.Size = new System.Drawing.Size(148, 20);
+            this.tBFolioMSP.TabIndex = 2;
+            // 
+            // cBProducto
+            // 
+            this.cBProducto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cBProducto.FormattingEnabled = true;
+            this.cBProducto.Location = new System.Drawing.Point(85, 47);
+            this.cBProducto.Name = "cBProducto";
+            this.cBProducto.Size = new System.Drawing.Size(148, 21);
+            this.cBProducto.TabIndex = 3;
+            // 
+            // bGuardar
+            // 
+            this.bGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.bGuardar.Location = new System.Drawing.Point(88, 332);
+            this.bGuardar.Name = "bGuardar";
+            this.bGuardar.Size = new System.Drawing.Size(75, 23);
+            this.bGuardar.TabIndex = 2;
+            this.bGuardar.Text = "Guardar";
+            this.bGuardar.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 74);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(89, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Cantidad a recibir";
+            // 
+            // tBCantReciv
+            // 
+            this.tBCantReciv.Location = new System.Drawing.Point(101, 74);
+            this.tBCantReciv.Name = "tBCantReciv";
+            this.tBCantReciv.Size = new System.Drawing.Size(132, 20);
+            this.tBCantReciv.TabIndex = 5;
+            // 
+            // gBImportacion
+            // 
+            this.gBImportacion.Controls.Add(this.textBox1);
+            this.gBImportacion.Controls.Add(this.label6);
+            this.gBImportacion.Controls.Add(this.tBTolva);
+            this.gBImportacion.Controls.Add(this.label5);
+            this.gBImportacion.Controls.Add(this.tBFurgon);
+            this.gBImportacion.Controls.Add(this.label4);
+            this.gBImportacion.Location = new System.Drawing.Point(12, 174);
+            this.gBImportacion.Name = "gBImportacion";
+            this.gBImportacion.Size = new System.Drawing.Size(239, 152);
+            this.gBImportacion.TabIndex = 3;
+            this.gBImportacion.TabStop = false;
+            this.gBImportacion.Text = "Datos de Importacion";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 29);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(40, 13);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Furgon";
+            // 
+            // tBFurgon
+            // 
+            this.tBFurgon.Location = new System.Drawing.Point(64, 22);
+            this.tBFurgon.Name = "tBFurgon";
+            this.tBFurgon.Size = new System.Drawing.Size(169, 20);
+            this.tBFurgon.TabIndex = 1;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 56);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(34, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Tolva";
+            // 
+            // tBTolva
+            // 
+            this.tBTolva.Location = new System.Drawing.Point(64, 53);
+            this.tBTolva.Name = "tBTolva";
+            this.tBTolva.Size = new System.Drawing.Size(169, 20);
+            this.tBTolva.TabIndex = 3;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(11, 90);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Sellos";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(64, 87);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(169, 59);
+            this.textBox1.TabIndex = 5;
+            // 
+            // FRegEmb
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(262, 357);
+            this.Controls.Add(this.gBImportacion);
+            this.Controls.Add(this.bGuardar);
+            this.Controls.Add(this.gBGenerales);
+            this.Controls.Add(this.gBOpciones);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Name = "FRegEmb";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Registro de Embarque";
+            this.gBOpciones.ResumeLayout(false);
+            this.gBOpciones.PerformLayout();
+            this.gBGenerales.ResumeLayout(false);
+            this.gBGenerales.PerformLayout();
+            this.gBImportacion.ResumeLayout(false);
+            this.gBImportacion.PerformLayout();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.GroupBox gBOpciones;
+        private System.Windows.Forms.RadioButton rBImportacion;
+        private System.Windows.Forms.RadioButton rBNacional;
+        private System.Windows.Forms.GroupBox gBGenerales;
+        private System.Windows.Forms.TextBox tBCantReciv;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cBProducto;
+        private System.Windows.Forms.TextBox tBFolioMSP;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button bGuardar;
+        private System.Windows.Forms.GroupBox gBImportacion;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox tBTolva;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tBFurgon;
+        private System.Windows.Forms.Label label4;
+    }
+}
