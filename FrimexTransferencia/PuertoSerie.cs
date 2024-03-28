@@ -60,7 +60,7 @@ namespace FrimexTransferencia
             }
             else
             {
-                MessageBox.Show("Ningun puerto de trabajo");
+                MessageBox.Show("Ningun puerto de trabajo","Mensaje de la aplicación",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 Puertos.Clear();
                 Puertos.Add("                    ");
                 Inicializar();
@@ -93,7 +93,7 @@ namespace FrimexTransferencia
                     }
                     catch (Exception Ex)
                     {
-                        MessageBox.Show(Ex.Message, "Error");
+                        MessageBox.Show(Ex.Message, "Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                         _estatus = false;
                     }
                 }
@@ -108,7 +108,7 @@ namespace FrimexTransferencia
             }
             catch(Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning  );
                 _estatus = false;
             }
         }
@@ -122,11 +122,11 @@ namespace FrimexTransferencia
                     _estatus = false;
                 }
                 else
-                    MessageBox.Show("El puerto está cerrado", "Error");
+                    MessageBox.Show("El puerto está cerrado", "Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
             catch(Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -140,7 +140,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -167,7 +167,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return DatoEntrada;
         }
@@ -187,7 +187,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
             return DatoEntrada;
         }

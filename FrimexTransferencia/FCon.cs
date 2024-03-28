@@ -49,7 +49,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
         }
 
@@ -101,9 +101,9 @@ namespace FrimexTransferencia
 
                                 SqlCommand cmdm = new SqlCommand(consulta, cn.SC);
                                 if(cmdm.ExecuteNonQuery() >0)
-                                    MessageBox.Show("Almacen dado de alta correctamente");
+                                    MessageBox.Show("Almacen dado de alta correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 else
-                                    MessageBox.Show("Favor de reinentar");
+                                    MessageBox.Show("Favor de reinentar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 cmdm.Dispose();
                                 cn.Desconectar();
                             }else if (_tipoMovimiento == "B")
@@ -118,13 +118,13 @@ namespace FrimexTransferencia
 
                                     SqlCommand cmdm = new SqlCommand(consulta, cn.SC);
                                     if (cmdm.ExecuteNonQuery() > 0)
-                                        MessageBox.Show("Almacen dado de baja correctamente");
+                                        MessageBox.Show("Almacen dado de baja correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     else
-                                        MessageBox.Show("Favor de reinentar");
+                                        MessageBox.Show("Favor de reinentar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     cmdm.Dispose();
                                     cn.Desconectar();
                                 }else
-                                    MessageBox.Show("Favor de especificar el Id del almacen a dar de baja");
+                                    MessageBox.Show("Favor de especificar el Id del almacen a dar de baja", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
 
                             }
@@ -143,33 +143,33 @@ namespace FrimexTransferencia
 
                                         SqlCommand cmdm = new SqlCommand(consulta, cn.SC);
                                         if (cmdm.ExecuteNonQuery() > 0)
-                                            MessageBox.Show("Almacen actualizado correctamente");
+                                            MessageBox.Show("Almacen actualizado correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                         else
-                                            MessageBox.Show("Favor de reinentar");
+                                            MessageBox.Show("Favor de reinentar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                         cmdm.Dispose();
                                         cn.Desconectar();
                                     }
                                     else
-                                        MessageBox.Show("Favor de especificar el nombre de almacen a modificar");
+                                        MessageBox.Show("Favor de especificar el nombre de almacen a modificar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }
                                 else
-                                    MessageBox.Show("Favor de especificar el Id del almacen a modificar");
+                                    MessageBox.Show("Favor de especificar el Id del almacen a modificar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                                     
                             }
                         }
                         else
-                            MessageBox.Show("Favor de seleccionar estatus de bodega");
+                            MessageBox.Show("Favor de seleccionar estatus de bodega", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     else
-                        MessageBox.Show("Favor de especificar el tipo de movimiento");
+                        MessageBox.Show("Favor de especificar el tipo de movimiento", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 else
-                    MessageBox.Show("Favor de especificar el nombre del almacen a crear");
+                    MessageBox.Show("Favor de especificar el nombre del almacen a crear", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 CargarAlmacenesEnGrid();
 
             }
             catch(Exception Ex)
             {
-                MessageBox.Show(Ex.Message);
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -251,7 +251,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void CargarAlmacen(ComboBox cBAlmacen)
@@ -287,7 +287,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private DataTable CargarAlmacen()
@@ -316,7 +316,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return Table;
         }
@@ -449,7 +449,7 @@ namespace FrimexTransferencia
                 ConexionMicrosip ConexionMicro = new ConexionMicrosip();
                 ConexionMicro.ConectarMicrosip(txtBDMicro.Text);
                 ConexionMicro.Desconectar();
-                MessageBox.Show("Conexion Exitosa");
+                MessageBox.Show("Conexion Exitosa", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -468,7 +468,7 @@ namespace FrimexTransferencia
                 ConexionSQL.Desconectar();
                 sc.Connection.Open();
                 //if (sc.Connection.State.ToString() == "Open")                     
-                MessageBox.Show("Conexion Exitosa");
+                MessageBox.Show("Conexion Exitosa","Mensaje de la aplicación",MessageBoxButtons.OK,MessageBoxIcon.Information);
                 ConexionSQL.Desconectar();
             }
             catch (Exception ex)
@@ -529,7 +529,7 @@ namespace FrimexTransferencia
                 dgvUsuarios = usuarios.MostrarUsuarios(dgvUsuarios, out mensaje_error);
             }
             else
-            MessageBox.Show("Las contraseñas no son iguales");
+            MessageBox.Show("Las contraseñas no son iguales","Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
         }
 
@@ -588,7 +588,7 @@ namespace FrimexTransferencia
                 }
                 else
                 {
-                    MessageBox.Show("El usuario no cuenta con almacen asignado");
+                    MessageBox.Show("El usuario no cuenta con almacen asignado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     _usuarioModificarID = _datosUsuario[0];
                     txtNombre.Text = _datosUsuario[1];
                     tBApellidoP.Text = _datosUsuario[2];

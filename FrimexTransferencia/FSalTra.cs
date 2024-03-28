@@ -508,7 +508,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return _existe;
         }
@@ -527,7 +527,7 @@ namespace FrimexTransferencia
                 tBSupersacoID.Enabled = false;
                 button1.Enabled = false;
                 mSOpciones.Enabled = false;
-                cBAlmacen.Enabled = false;
+                cBAlmacen.Enabled = true;
             }
                 CargarAlmacenes();
         }
@@ -548,7 +548,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void CargarAlmacenes()
@@ -580,7 +580,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void button1_Click(object sender, EventArgs e)
@@ -887,7 +887,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             button1.Enabled = true;
         }
@@ -973,7 +973,7 @@ namespace FrimexTransferencia
 
                                 }
                                 else
-                                    MessageBox.Show("No se pudo eliminar el supersaco en la base de datos, por favor reintente");
+                                    MessageBox.Show("No se pudo eliminar el supersaco en la base de datos, por favor reintente", "Mensaje de la aplicación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                                     transaction.Dispose();
                                 cn.Desconectar();
@@ -1053,7 +1053,7 @@ namespace FrimexTransferencia
                     if (_PuertoSerie.EstaConectado)
                     {
                         _PuertoSerie.DesconectarPuertoSerie();
-                        MessageBox.Show("Báscula desconectada");
+                        MessageBox.Show("Báscula desconectada","Mensaje de la aplicación",MessageBoxButtons.OK,MessageBoxIcon.Information);
                         desconectarBásculaToolStripMenuItem.Visible = false;
                         conectarBásculaToolStripMenuItem.Visible = true;
                     }
@@ -1061,7 +1061,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
         }
         private void salirToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -1096,7 +1096,7 @@ namespace FrimexTransferencia
                     if (_PuertoSerie.EstaConectado)
                     {
                         _conexion = true;
-                        MessageBox.Show("Báscula conectada");
+                        MessageBox.Show("Báscula conectada","Mensaje de la aplicación",MessageBoxButtons.OK,MessageBoxIcon.Information);
                         pConectarPuerto.Visible = false;
                         conectarBásculaToolStripMenuItem.Visible = false;
                         desconectarBásculaToolStripMenuItem.Visible = true;
@@ -1116,14 +1116,14 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
         }
         private void FSalTra_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (_PuertoSerie.EstaConectado)
             {
-                MessageBox.Show("Favor de desconectar el puerto serie", "Informacion");
+                MessageBox.Show("Favor de desconectar el puerto serie", "Informacion",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 e.Cancel = true;
             }
         }

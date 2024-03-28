@@ -102,7 +102,7 @@ namespace FrimexTransferencia
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.Message);
+                MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return treeView1;
         }
@@ -216,7 +216,7 @@ namespace FrimexTransferencia
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 band = false;
             }
             return band;
@@ -478,7 +478,7 @@ namespace FrimexTransferencia
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al obtener los permisos de usuario: " + ex.Message);
+                MessageBox.Show("Error al obtener los permisos de usuario: " + ex.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
 
             return comp_aux;

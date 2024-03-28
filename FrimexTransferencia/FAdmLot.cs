@@ -41,7 +41,7 @@ namespace FrimexTransferencia
                 string auxCant = "";
                 double auxCantDoble = 0.0;
                 if (msg_local.Length > 0)
-                    MessageBox.Show(msg_local, "Error");
+                    MessageBox.Show(msg_local, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 //if (_datosMSP.Rows.Count == 0)
                 //    MessageBox.Show("Sin datos encontrados", "Información");
                 //else
@@ -228,7 +228,7 @@ namespace FrimexTransferencia
                         MessageBox.Show("Sin datos encontrados", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
-                    MessageBox.Show("Sin datos para mostrar");
+                    MessageBox.Show("Sin datos para mostrar","Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
@@ -329,9 +329,9 @@ namespace FrimexTransferencia
                 {
                     C_Funciones _Funciones = new C_Funciones();
                     if (_Funciones.ActualizarLote(_lote, _fechFum, _estRecep.Substring(0, 1), _estLot.Substring(0, 1), _Usuario, out msg_local))
-                        MessageBox.Show("Datos actualizados correctamente");
+                        MessageBox.Show("Datos actualizados correctamente","Mensaje de la aplicación",MessageBoxButtons.OK,MessageBoxIcon.Information);
                     if(msg_local.Length>0)
-                        MessageBox.Show(msg_local,"Error");
+                        MessageBox.Show(msg_local, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }

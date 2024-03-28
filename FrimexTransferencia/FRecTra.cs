@@ -63,7 +63,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void bIniciarRecepción_Click(object sender, EventArgs e)
@@ -85,7 +85,7 @@ namespace FrimexTransferencia
                         tBTransferenciaID.Enabled = false;
                         if (_folio.Length > 0)
                         {
-                            CargarSupersacosTransferidos(_folio);
+                            //CargarSupersacosTransferidos(_folio);
                             CargarSupersacosTransferencia(_folio);
 
                         }
@@ -142,7 +142,7 @@ namespace FrimexTransferencia
             else
             {
 
-                MessageBox.Show("Favor de especificar la trasferencia a recibir");
+                MessageBox.Show("Favor de especificar la trasferencia a recibir", "Mensaje de la aplicación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void Limpiar()
@@ -287,7 +287,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return _existe;
         }
@@ -326,7 +326,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void CargarSupersacosTransferidos(string TRANSFERENCIA_ID)
@@ -339,7 +339,8 @@ namespace FrimexTransferencia
                     " inner join transferencia_detalle as td on t.transferencia_id = td.transferencia_id " +
                     " inner join SUPERSACO as s on td.supersaco_id=s.SUPERSACO_ID " +
                     " inner join PRODUCTO as p on s.PRODUCTO_ID = p.PRODUCTO_ID or s.PRODUCTO_ID = p.PRODUCTO_MSP_ID " +
-                    " inner join INVENTARIO_FRIMEX as iv on s.INVENTARIO_SUPERSACO_ID=iv.INVENTARIO_FRIMEX_ID " +
+                   // " inner join INVENTARIO_FRIMEX as iv on s.INVENTARIO_SUPERSACO_ID=iv.INVENTARIO_FRIMEX_ID " +
+                   " inner join INVENTARIO_FRIMEX as iv on  t.ALMACEN_DESTINO_ID =iv.INVENTARIO_FRIMEX_ID " +
                     " where " +
                     " t.transferencia_id = " + TRANSFERENCIA_ID +
                     " order by s.SUPERSACO_ID asc";
@@ -365,7 +366,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void tBTransferenciaID_KeyPress(object sender, KeyPressEventArgs e)
@@ -425,7 +426,7 @@ namespace FrimexTransferencia
                     if (_PuertoSerie.EstaConectado)
                     {
                         _PuertoSerie.DesconectarPuertoSerie();
-                        MessageBox.Show("Báscula desconectada");
+                        MessageBox.Show("Báscula desconectada","Mensaje de la apliacicón",MessageBoxButtons.OK,MessageBoxIcon.Information);
                         desconectarBásculaToolStripMenuItem.Visible = false;
                         conectarBásculaToolStripMenuItem.Visible = true;
                     }
@@ -433,7 +434,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private string ValidarDigitos(string CADENA)
@@ -551,6 +552,7 @@ namespace FrimexTransferencia
                             //else
                                 aux = ValidarDigitos(_PuertoSerie.DatoRecibido());
                             decimal valor;
+                            
                             if (Decimal.TryParse(aux, out valor))
                             {
                                 _PesoSS = Convert.ToDouble(valor);
@@ -594,7 +596,7 @@ namespace FrimexTransferencia
                 msg_local = Ex.Message;
             }
             if (msg_local.Length > 0)
-                MessageBox.Show(msg_local, "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                MessageBox.Show(msg_local, "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         private string InvertirCadena(string cadena)
         {
@@ -609,7 +611,7 @@ namespace FrimexTransferencia
         {
             if (_PuertoSerie.EstaConectado)
             {
-                MessageBox.Show("Favor de desconectar el puerto serie", "Informacion");
+                MessageBox.Show("Favor de desconectar el puerto serie", "Informacion",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 e.Cancel = true;
             }
         }
@@ -640,7 +642,7 @@ namespace FrimexTransferencia
                     if (_PuertoSerie.EstaConectado)
                     {
                         _conexion = true;
-                        MessageBox.Show("Báscula conectada");
+                        MessageBox.Show("Báscula conectada","Mensaje de la aplicación",MessageBoxButtons.OK,MessageBoxIcon.Information);
                         pConectarPuerto.Visible = false;
                         conectarBásculaToolStripMenuItem.Visible = false;
                         desconectarBásculaToolStripMenuItem.Visible = true;
@@ -656,7 +658,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
         }
         private void AlmacenesID(string TRANSFERENCIA_ID)
@@ -678,7 +680,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         //private bool TransferenciaMSP(DataGridView dGVTransferir,int ALMACEN_ORIGEN,int ALMACEN_DESTINO,out string msg)

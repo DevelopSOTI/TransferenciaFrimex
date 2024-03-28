@@ -80,7 +80,7 @@ namespace ApiInventarios
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.Message);
+                MessageBox.Show(err.Message,"Mensaje de la apliación",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
             
         }
@@ -105,7 +105,7 @@ namespace ApiInventarios
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.Message);
+                MessageBox.Show(err.Message,"Mensaje de la aplicación",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
             
         }

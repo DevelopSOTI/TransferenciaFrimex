@@ -53,7 +53,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message,"Error");
+                MessageBox.Show(Ex.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
             return _estatus;
         }

@@ -218,7 +218,7 @@ namespace FrimexTransferencia
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.Message);
+                MessageBox.Show(err.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
             return treeView_PermisosUsuario;
         }

@@ -164,18 +164,22 @@ namespace FrimexTransferencia
                     " ,[IMPORTE]) " +
                     " VALUES " +
                     " ( " + cn.ObtenerSigID() +
-                    " ,'" + _fecha +
-                    "', " + Usuario.USUARIOID.ToString() +
-                    " ,'" + _fecha +
-                    "', " + Usuario.USUARIOID.ToString() +
+                    " ,@Fecha1"  +
+                    ", " + Usuario.USUARIOID.ToString() +
+                    " ,@Fecha2"  +
+                    ", " + Usuario.USUARIOID.ToString() +
                     " , " + _EstatusId +
                     " , " + _IdProveedor +
                     " ,'" + FOLIO +
-                    "','" + FECHA +
-                    "','" + ESTATUS +
+                    "', @Fecha3"  +
+                    ",'" + ESTATUS +
                     "','" + DESCRIPCION +
                     "', " + IMPORTE + ")";
                 SqlCommand cmd = new SqlCommand(consulta, cn.SC);
+
+                cmd.Parameters.Add("@Fecha1", SqlDbType.Date).Value = _fecha;
+                cmd.Parameters.Add("@Fecha2", SqlDbType.Date).Value = _fecha;
+                cmd.Parameters.Add("@Fecha3", SqlDbType.Date).Value = FECHA;
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
                 cn.Desconectar();
@@ -183,21 +187,24 @@ namespace FrimexTransferencia
                 consulta = "SELECT [PETICION_OC_ID] " +
                     " FROM [dbo].[PETICION_OC] " +
                     " WHERE " +
-                    " [PETICION_OC_FECHA]='" + _fecha +
-                    "' AND [PETICION_OC_USUARIO_CREACION]= " + Usuario.USUARIOID.ToString() +
-                    "  AND [PETICION_OC_FECHA_MODIF]='" + _fecha +
-                    "' AND [PETICION_OC_USUARIO_CREACION]=" + Usuario.USUARIOID.ToString() +
+                    " [PETICION_OC_FECHA]= @Fecha" +
+                    " AND [PETICION_OC_USUARIO_CREACION]= " + Usuario.USUARIOID.ToString() +
+                    "  AND [PETICION_OC_FECHA_MODIF]=@Fecha2"  +
+                    " AND [PETICION_OC_USUARIO_CREACION]=" + Usuario.USUARIOID.ToString() +
                     "  AND [ESTATUS_ID]= " + _EstatusId +
                     "  AND [PROVEEDOR_MSP_ID]=" + _IdProveedor +
                     "  AND [FOLIO]='" + FOLIO +
-                    "' AND [FECHA]='" + FECHA +
-                    "' AND [ESTATUS]='" + ESTATUS +
+                    "' AND [FECHA]= @Fecha3"  +
+                    " AND [ESTATUS]='" + ESTATUS +
                     "' AND [DESCRIPCION]='" + DESCRIPCION +
                     "' AND [IMPORTE]=" + IMPORTE;
 
                 cn = new ConexionSql();
                 cn.ConectarSQLServer();
                 cmd = new SqlCommand(consulta, cn.SC);
+                cmd.Parameters.Add("@Fecha", SqlDbType.Date).Value = _fecha;
+                cmd.Parameters.Add("@Fecha2", SqlDbType.Date).Value = _fecha;
+                cmd.Parameters.Add("@Fecha3", SqlDbType.Date).Value = FECHA;
                 SqlDataReader sdr = cmd.ExecuteReader();
                 while (sdr.Read())
                     //_OC_ID = (Convert.ToInt32(sdr["PETICION_OC_ID"])).ToString().Trim();
@@ -247,7 +254,7 @@ namespace FrimexTransferencia
             catch (Exception Ex)
             {
                 _OrdenCompraID = "";
-                MessageBox.Show(Ex.Message+" El articulo \""+ NOMBRE +"\" no se encuentra registrado en la base de datos", "Error");
+                MessageBox.Show(Ex.Message + " El articulo \"" + NOMBRE + "\" no se encuentra registrado en la base de datos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 if (cn.IsConected())
                     cn.Desconectar();
             }
@@ -280,7 +287,7 @@ namespace FrimexTransferencia
                 _existe = false;
                 if (cn.IsConected())
                     cn.Desconectar();
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return _existe;
         }

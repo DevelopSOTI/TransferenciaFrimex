@@ -51,7 +51,7 @@ namespace FrimexTransferencia
                     dGVSupersacos["ProductoID", _filas[i]].Value = _productoID;
                 }
                 else
-                    MessageBox.Show("No se puede modificar un supersaco guardado");
+                    MessageBox.Show("No se puede modificar un supersaco guardado","Mensaje de la aplicación",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
         }
 
@@ -90,7 +90,7 @@ namespace FrimexTransferencia
                             }
                             catch (Exception Ex)
                             {
-                                MessageBox.Show(Ex.Message, "Error");
+                                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                         }
                         else
@@ -118,10 +118,10 @@ namespace FrimexTransferencia
                         }
                     }
                     else
-                        MessageBox.Show("Error al leer la báscula, favor de reintentar", "Error");
+                        MessageBox.Show("Error al leer la báscula, favor de reintentar", "Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 }
                 else
-                    MessageBox.Show("No se puede realizar la operacion la báscula no esta conectada");
+                    MessageBox.Show("No se puede realizar la operacion la báscula no esta conectada","Mensaje de la aplicación",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
             else if (_contenido == "Capturado")
             {
@@ -130,7 +130,7 @@ namespace FrimexTransferencia
                 {
                     string aux = Convert.ToString(dGVSupersacos["Agregar", e.RowIndex].Value);
                     if (aux == "Agregado")
-                        MessageBox.Show("No se puede recapturar un producto agregado");
+                        MessageBox.Show("No se puede recapturar un producto agregado", "Mensaje de la aplicación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     else if (aux == "Agregar")
                         dGVSupersacos["CapturarPeso", e.RowIndex].Value = "Capturar...";
 
@@ -202,13 +202,13 @@ namespace FrimexTransferencia
                                         _cb.ShowDialog();
                                     }
                                     else
-                                        MessageBox.Show("No se puede imprimir la etiqueta supersaco ID no asignado");
+                                        MessageBox.Show("No se puede imprimir la etiqueta supersaco ID no asignado", "Mensaje de la aplicación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 }
                                 else
-                                    MessageBox.Show("Cantidad no especificada");
+                                    MessageBox.Show("Cantidad no especificada", "Mensaje de la aplicación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                             else if (aux == "Agregar")
-                                MessageBox.Show("No se puede imprimir un supersaco que no haya sido guardado en base de datos");
+                                MessageBox.Show("No se puede imprimir un supersaco que no haya sido guardado en base de datos", "Mensaje de la aplicación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
                         //    }
@@ -300,7 +300,7 @@ namespace FrimexTransferencia
             {
                 if (ConexionSQL.IsConected())
                     ConexionSQL.Desconectar();
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void bActivar_Click(object sender, EventArgs e)
@@ -421,7 +421,7 @@ namespace FrimexTransferencia
                     if (_PuertoSerie.EstaConectado)
                     {
                         _conexion = true;
-                        MessageBox.Show("Báscula conectada");
+                        MessageBox.Show("Báscula conectada", "Mensaje de la aplicación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         pConectarPuerto.Visible = false;
                         conectarBásculaToolStripMenuItem.Visible = false;
                         desconectarBásculaToolStripMenuItem.Visible = true;
@@ -437,7 +437,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
         }
@@ -451,7 +451,7 @@ namespace FrimexTransferencia
                     if (_PuertoSerie.EstaConectado)
                     {
                         _PuertoSerie.DesconectarPuertoSerie();
-                        MessageBox.Show("Báscula desconectada");
+                        MessageBox.Show("Báscula desconectada", "Mensaje de la aplicación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         desconectarBásculaToolStripMenuItem.Visible = false;
                         conectarBásculaToolStripMenuItem.Visible = true;
                     }
@@ -459,7 +459,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void CargarSupersacosEmbarque(string EmbarqueID)
@@ -515,7 +515,7 @@ namespace FrimexTransferencia
             {
                 if (cn.IsConected())
                     cn.Desconectar();
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -568,7 +568,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return _lote;
         }
@@ -594,7 +594,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return _lote;
         }
@@ -602,7 +602,7 @@ namespace FrimexTransferencia
         {
             if (_PuertoSerie.EstaConectado)
             {
-                MessageBox.Show("Favor de desconectar el puerto serie", "Informacion");
+                MessageBox.Show("Favor de desconectar el puerto serie", "Informacion",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 e.Cancel = true;
             }
         }
@@ -640,7 +640,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return TotalKg;
         }
@@ -697,24 +697,27 @@ namespace FrimexTransferencia
                                 " ," + INVENTARIO_SUPERSACO_ID +
                                 " ," + PRODUCTO_ID +
                                 " ," + SUPERSACO_CANTIDAD +
-                                ",'" + FECHA +
-                                "'," + _loteID +
+                                ", @Fecha "  +
+                                "," + _loteID +
                                 ",'" + SUPERSACO_ESTATUS +
                                 "'," + _embarqueID + "" +
                                 ",'N')";
                             cn.ConectarSQLServer();
                             cmd = new SqlCommand(consulta, cn.SC);
+                            cmd.Parameters.Add("@Fecha", SqlDbType.Date).Value = FECHA;
                             cmd.ExecuteNonQuery();
                             //buscar el Id de supersaco
                             consulta = "SELECT SUPERSACO_ID FROM  [dbo].[SUPERSACO] WHERE " +
                                 " INVENTARIO_SUPERSACO_ID= " + INVENTARIO_SUPERSACO_ID +
                                 " AND PRODUCTO_ID= " + PRODUCTO_ID +
                                 " AND SUPERSACO_CANTIDAD= " + SUPERSACO_CANTIDAD +
-                                " AND SUPERSACO_FECHA= '" + FECHA + "'" +
+                                " AND SUPERSACO_FECHA= @Fecha " +
                                 " AND LOTE_ID= " + _loteID +
                                 " AND SUPERSACO_ESTATUS= '" + SUPERSACO_ESTATUS + "'";
                             cmd = new SqlCommand(consulta, cn.SC);
+                            cmd.Parameters.Add("@Fecha",SqlDbType.Date).Value = FECHA;
                             SqlCommand sc = new SqlCommand(consulta, cn.SC);
+                            sc.Parameters.Add("@Fecha",SqlDbType.Date).Value = FECHA;
                             SqlDataReader reader = sc.ExecuteReader();
                             while (reader.Read())
                             {
@@ -738,12 +741,13 @@ namespace FrimexTransferencia
                                 " , " + SUPERSACO_ID +
                                 " , " + PRODUCTO_ID +
                                 " , " + SUPERSACO_CANTIDAD +
-                                " ,'" + FECHA +
-                                "','" + SUPERSACO_ESTATUS +
+                                " , " + FECHA +
+                                ", " + SUPERSACO_ESTATUS +
                                 "' ," + _Usuario.USUARIOID +
-                                " ,'" + FECHA +
-                                "') ";
+                                " , @Fecha " +
+                                ") ";
                             cmd = new SqlCommand(consulta, cn.SC);
+                            cmd.Parameters.Add("@Fecha", SqlDbType.Date).Value = FECHA;
                             cmd.ExecuteNonQuery();
                             cn.ConectarSQLServer();
                             cmd.Dispose();
@@ -755,7 +759,7 @@ namespace FrimexTransferencia
             catch (Exception Ex)
             {
                 cn.Desconectar();
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -880,7 +884,7 @@ namespace FrimexTransferencia
             catch (Exception Ex)
             {
                 cn.Desconectar();
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -915,11 +919,12 @@ namespace FrimexTransferencia
                         " VALUES " +
                         " ( " + cn.ObtenerSigID() +
                         " , " + _Usuario.USUARIOID.ToString() +
-                        " ,'" + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss") +
-                        "' ," + Almacen_id +
+                        " , @Fecha " +
+                        " ," + Almacen_id +
                         " ,'" + Almacen_desc +
                         "') ";
                     cmd = new SqlCommand(consulta, cn.SC);
+                    cmd.Parameters.Add("@Fecha",SqlDbType.Date).Value = DateTime.Now;
                     cmd.ExecuteNonQuery();
                 }
                 consulta = "select * from INVENTARIO_FRIMEX " +
@@ -939,7 +944,7 @@ namespace FrimexTransferencia
             {
                 _InvenarioID = "";
                 cn.Desconectar();
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return _InvenarioID;
         }
@@ -972,12 +977,14 @@ namespace FrimexTransferencia
                     " ,[INVENTARIO_FRIMEX_ID]) " +
                     " VALUES " +
                     " ( " + cn.ObtenerSigID().ToString() +
-                    " ,'" + _Fecha +
-                    "' ," + _Usuario.USUARIOID.ToString() +
+                    " , @Fecha "  +
+                    " ," + _Usuario.USUARIOID.ToString() +
                     " , " + InventarioFrimexId + ")";
                 }
                 reader.Close();
                 cmd = new SqlCommand(consulta, cn.SC);
+                if (!_Existe)
+                    cmd.Parameters.Add("@Fecha", SqlDbType.Date).Value = _Fecha;
                 cmd.ExecuteNonQuery();
                 consulta = "select INVENTARIO_SUPERSACO_ID " +
                    " from inventario_supersaco " +
@@ -997,7 +1004,7 @@ namespace FrimexTransferencia
             {
                 cn.Desconectar();
                 _InvsuperSacoID = "";
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             return _InvsuperSacoID;
@@ -1030,7 +1037,7 @@ namespace FrimexTransferencia
         {
             if (_PuertoSerie.EstaConectado)
             {
-                MessageBox.Show("Favor de desconectar el puerto serie", "Informacion");
+                MessageBox.Show("Favor de desconectar el puerto serie", "Informacion",MessageBoxButtons.OK,MessageBoxIcon.Information);
                 e.Cancel = true;
             }
         }
@@ -1183,7 +1190,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -1238,7 +1245,7 @@ namespace FrimexTransferencia
             catch (Exception Ex)
             {
                 cn.Desconectar();
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -1277,7 +1284,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -1328,7 +1335,7 @@ namespace FrimexTransferencia
                 }
                 catch (Exception Ex)
                 {
-                    MessageBox.Show(Ex.Message, "Error");
+                    MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     if (cn.IsConected() == true)
                         cn.Desconectar();
                 }
@@ -1430,7 +1437,7 @@ namespace FrimexTransferencia
             catch (Exception EX)
             {
                 ConexionSQL.Desconectar();
-                MessageBox.Show(EX.Message, "Error");
+                MessageBox.Show(EX.Message, "Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
         }
 
@@ -1489,12 +1496,13 @@ namespace FrimexTransferencia
                     " ,'" + TipoDocumento + "'" +
                     " , " + DocumentoID +
                     " , " + _Usuario.USUARIOID.ToString() +
-                    " ,'" + Fecha + "'" +
+                    " ,@Fecha" +
                     " , " + LoteID +
                     " , " + CentroCompraID + ")";
 
                 ConexionSQL.ConectarSQLServer();
                 cmd = new SqlCommand(consulta, ConexionSQL.SC);
+                cmd.Parameters.Add("@Fecha", SqlDbType.Date).Value = Fecha;
                 cmd.ExecuteNonQuery();
                 cmd.Cancel();
                 ConexionSQL.Desconectar();
@@ -1504,7 +1512,7 @@ namespace FrimexTransferencia
             {
                 if (ConexionSQL.IsConected())
                     ConexionSQL.Desconectar();
-                MessageBox.Show(EX.Message, "Error");
+                MessageBox.Show(EX.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 _exito = false;
             }
             return _exito;
@@ -1545,13 +1553,14 @@ namespace FrimexTransferencia
                     " VALUES " +
                     " ( " + cn.ObtenerSigID("LOTERECEPCION").ToString() +
                     " ,'" + Serie + "'" +
-                    " ,'" + FECHA + "'" +
+                    " , @Fecha " +
                     " , " + _Usuario.USUARIOID.ToString() +
                     " ,'" + TipoDocumento + "'" +
                     " , " + Documento +
                     " , " + RecepcionID +
                     " ) ";
                 cmd = new SqlCommand(consulta, cn.SC);
+                cmd.Parameters.Add("@Fecha", SqlDbType.Date).Value = FECHA;
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
                 cn.Desconectar();
@@ -1560,7 +1569,7 @@ namespace FrimexTransferencia
             {
                 _loteId = 0;
                 cn.Desconectar();
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return _loteId.ToString();
         }
@@ -1597,7 +1606,7 @@ namespace FrimexTransferencia
             {
                 _RecepcionID = 0;
                 cn.Desconectar();
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             return _RecepcionID.ToString();

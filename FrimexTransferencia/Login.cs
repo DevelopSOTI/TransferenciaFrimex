@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -104,6 +105,15 @@ namespace FrimexTransferencia
         {
             if (e.KeyCode == Keys.Enter)
                 Accesar();
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                tBUsuario.Text = "SISTEMAS";
+                tBContraseña.Text = "1994";
+            }
         }
     }
 }

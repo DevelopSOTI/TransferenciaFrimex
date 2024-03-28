@@ -29,11 +29,11 @@ namespace FrimexTransferencia
             PrivilegioUsuario pu = new PrivilegioUsuario();
             if (pu.GuardarCambios(_Usuario.USUARIOID, treeViewPrivilegios))
             {
-                MessageBox.Show("Cambios Guardados");
+                MessageBox.Show("Cambios Guardados","Mensaje de la aplicación",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("No se guardaron los cambios");
+                MessageBox.Show("No se guardaron los cambios","Mensaje de la aplicación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

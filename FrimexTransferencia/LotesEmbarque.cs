@@ -91,7 +91,7 @@ namespace FrimexTransferencia
             catch (Exception Ex)
             {
                 _correcto = false;
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return _correcto;
         }
@@ -121,7 +121,7 @@ namespace FrimexTransferencia
                 catch (Exception Ex)
                 {
                     cn.Desconectar();
-                    MessageBox.Show(Ex.Message, "Error");
+                    MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
@@ -146,7 +146,7 @@ namespace FrimexTransferencia
             catch (Exception Ex)
             {
                 cn.Desconectar();
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }            
         }
     }

@@ -330,7 +330,7 @@ namespace FrimexTransferencia
                 string periodo = "";
                 _ruta = ExportarDataGridViewExcel(ReporteTitulo,Datos,pBAvance,sFDGuardar, dataGridViewDatos, Usuario, periodo, out msg_local);
                 if (msg_local.Length > 0)
-                    MessageBox.Show(msg_local,"Error");
+                    MessageBox.Show(msg_local,"Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
             catch (Exception Ex)
             {
@@ -485,7 +485,7 @@ namespace FrimexTransferencia
                     ruta = librosTrabajo.Path;
                     librosTrabajo.Close(true);
                     aplicacion.Quit();
-                    MessageBox.Show("Exportación Exitosa");
+                    MessageBox.Show("Exportación Exitosa","Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception Ex)

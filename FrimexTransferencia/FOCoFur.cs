@@ -123,10 +123,10 @@ namespace FrimexTransferencia
                                     MessageBox.Show("Folio del furgón actualizado correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                             else
-                                MessageBox.Show("El folio del furgron ya hahía sido actualizado \r\n Folio asignado: " + _folioMSP);
+                                MessageBox.Show("El folio del furgron ya había sido actualizado \r\n Folio asignado: " + _folioMSP,"Mensaje de la aplicación",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                         }
                         else
-                            MessageBox.Show("El furgon no se pudo actualizar en MSP");
+                            MessageBox.Show("El furgon no se pudo actualizar en MSP","Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                     }
                     else
                         mensaje.Error("El folio no ingresado", "Error");
@@ -165,7 +165,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return _furgones;
         }
@@ -188,11 +188,11 @@ namespace FrimexTransferencia
                             InsertarOC();
                         }
                         else
-                            MessageBox.Show("Cantidades no han sido especificadas", "Error");
+                            MessageBox.Show("Cantidades no han sido especificadas", "Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                     }
                 }
                 else
-                    MessageBox.Show("El detalle no corresponde a la orden de compra seleccionada");
+                    MessageBox.Show("El detalle no corresponde a la orden de compra seleccionada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception Ex)
             {
@@ -283,7 +283,7 @@ namespace FrimexTransferencia
             else
                 msg_local = "Folio no encontrado";
             if (msg_local.Length > 0)
-                MessageBox.Show(msg_local, "Error");
+                MessageBox.Show(msg_local, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void tBFolioOCMSP_KeyPress(object sender, KeyPressEventArgs e)
@@ -360,7 +360,7 @@ namespace FrimexTransferencia
                     e.Handled = true;
             }
             if (msg_local.Length > 0)
-                MessageBox.Show(msg_local, "Error");
+                MessageBox.Show(msg_local, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
         DataTable BuscarPedimento(int folio, out string msg)
         {
@@ -457,7 +457,7 @@ namespace FrimexTransferencia
                     }
                     else
                     {
-                        MessageBox.Show("La peticion de compra con el folio: \"" + Convert.ToString(_dRVProd["FOLIO"]) + "\" ya existe,\nSe realizará el embarque");
+                        MessageBox.Show("La peticion de compra con el folio: \"" + Convert.ToString(_dRVProd["FOLIO"]) + "\" ya existe\nSe realizará el embarque","Mensaje de la aplicación",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                     }
                     string EMBARQUE_ID = ExisteEmbarque(_FolioMsp, out _msg);
                     if (EMBARQUE_ID.Length == 0)
@@ -507,14 +507,14 @@ namespace FrimexTransferencia
                     }
                     else
                     {
-                        MessageBox.Show("El embarque para el folio seleccionado " + _FolioMsp + " ya existe es el Embarque ID" + EMBARQUE_ID);
+                        MessageBox.Show("El embarque para el folio seleccionado " + _FolioMsp + " ya existe es el Embarque ID" + EMBARQUE_ID,"Mensaje de la aplicación",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                     }                    
                 }
 
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 if (cn.IsConected())
                     cn.Desconectar();
             }

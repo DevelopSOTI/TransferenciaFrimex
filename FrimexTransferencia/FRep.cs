@@ -379,14 +379,14 @@ namespace FrimexTransferencia
                                     MessageBox.Show("Archivo generado con éxito\n\r\"" + ruta + "\"", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                             else
-                                MessageBox.Show("Sin datos encontrados", "Información");
+                                MessageBox.Show("Sin datos encontrados", "Información",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                         }
                         catch (Exception Ex)
                         {
                             msg_local = Ex.Message;
                         }
                         if (msg_local.Length > 0)
-                            MessageBox.Show(msg_local, "Error");
+                            MessageBox.Show(msg_local, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
             }
@@ -460,14 +460,14 @@ namespace FrimexTransferencia
                                 MessageBox.Show("Archivo generado con éxito\n\r\"" + ruta + "\"", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
-                            MessageBox.Show("Sin datos encontrados", "Información");
+                            MessageBox.Show("Sin datos encontrados", "Información", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     catch (Exception Ex)
                     {
                         msg_local = Ex.Message;
                     }
                     if (msg_local.Length > 0)
-                        MessageBox.Show(msg_local, "Error");
+                        MessageBox.Show(msg_local, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }
@@ -484,7 +484,7 @@ namespace FrimexTransferencia
                 msg_local = Ex.Message;
             }
             if (msg_local.Length > 0)
-                MessageBox.Show(msg_local, "Error");
+                MessageBox.Show(msg_local, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
         private void SupersacosDisponiblesXUbicacion()
         {
@@ -499,7 +499,7 @@ namespace FrimexTransferencia
                 msg_local = Ex.Message;
             }
             if (msg_local.Length > 0)
-                MessageBox.Show(msg_local, "Error");
+                MessageBox.Show(msg_local, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
         private void TransferenciasXFechas()
         {
@@ -514,7 +514,7 @@ namespace FrimexTransferencia
                 msg_local = Ex.Message;
             }
             if (msg_local.Length > 0)
-                MessageBox.Show(msg_local, "Error");
+                MessageBox.Show(msg_local, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void cBSeleccionReporte_SelectedIndexChanged(object sender, EventArgs e)
@@ -578,7 +578,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

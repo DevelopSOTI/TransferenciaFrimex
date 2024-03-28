@@ -170,7 +170,7 @@ namespace FrimexTransferencia
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.Message);
+                MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             obj_usuario = obj_aux;
             return resultado;
@@ -630,7 +630,7 @@ namespace FrimexTransferencia
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return existe;
         }
@@ -826,7 +826,7 @@ namespace FrimexTransferencia
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return datosUsuario;
         }
@@ -883,7 +883,7 @@ namespace FrimexTransferencia
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.Message);
+                MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning  );
             }
             obj_usuario = obj_aux;
             return resultado;

@@ -67,7 +67,7 @@ namespace FrimexTransferencia
             }
             catch(Exception err)
             {
-                MessageBox.Show(err.Message);
+                MessageBox.Show(err.Message,"Mensaje de la aplicación",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
             
         }
@@ -91,7 +91,7 @@ namespace FrimexTransferencia
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message,"Error");
+                MessageBox.Show(e.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
             return docto_cm_id;
         }
@@ -110,7 +110,7 @@ namespace FrimexTransferencia
             }
             catch(Exception err)
             {
-                MessageBox.Show(err.Message);
+                MessageBox.Show(err.Message, "Mensaje de la aplicación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             
         }

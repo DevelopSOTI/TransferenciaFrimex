@@ -348,7 +348,7 @@ namespace FrimexTransferencia
         {
 
             bool _exito = false;
-            string consulta = "", msg_local = "", _TRANSFERENCIA = "",
+            string consulta = "", msg_local = "", _TRANSFERENCIA = TRANSFERENCIA_ID.ToString(),
                 FECHA_ACTUALIZACION = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss");
             ConexionSql cn = new ConexionSql();
             try
@@ -360,7 +360,7 @@ namespace FrimexTransferencia
                 {
                     consulta = "UPDATE [dbo].[SUPERSACO] " +
                        " SET [SUPERSACO_FOLIO_TRASNF] = " + _TRANSFERENCIA +
-                       " WHERE[SUPERSACO_ID]=" + SUPERSACOS[i];
+                       " WHERE [SUPERSACO_ID]=" + SUPERSACOS[i];
                     cn.ConectarSQLServer();
                     cmd = new SqlCommand(consulta, cn.SC);
                     cmd.ExecuteNonQuery();

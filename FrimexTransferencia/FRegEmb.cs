@@ -95,18 +95,18 @@ namespace FrimexTransferencia
 
                 if (_valido == true)
                 {
-                    _resp = MessageBox.Show("¿Desea hacer recepcíon del producto indicado\nEn la orden de compra?", "Informacion", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    _resp = MessageBox.Show("¿Desea hacer recepcíon del producto indicado\nEn la orden de compra?", "Informacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (_resp == DialogResult.Yes)
                     {
                         double Cant = Convert.ToDouble((tBCantReciv.Text.Trim().Length > 0 ? tBCantReciv.Text.Trim() : "0"));
                         if (Cant > 0)
                             InsertarOC();
                         else
-                            MessageBox.Show("Cantidades no han sido especificadas", "Error");
+                            MessageBox.Show("Cantidades no han sido especificadas", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
                 else
-                    MessageBox.Show("El detalle no corresponde a la orden de compra seleccionada");
+                    MessageBox.Show("El detalle no corresponde a la orden de compra seleccionada", "Mensaje de la aplicación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception Ex)
             {
@@ -184,7 +184,7 @@ namespace FrimexTransferencia
                     }
                     else
                     {
-                        MessageBox.Show("La peticion de compra con el folio: \"" + Convert.ToString(_dRVProd["FOLIO"]) + "\" ya existe,\nSe realizará el embarque");
+                        MessageBox.Show("La peticion de compra con el folio: \"" + Convert.ToString(_dRVProd["FOLIO"]) + "\" ya existe\nSe realizará el embarque", "Mens", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     string EMBARQUE_ID = ExisteEmbarque(_FolioMsp, out _msg);
                     if (EMBARQUE_ID.Length == 0)
@@ -217,7 +217,7 @@ namespace FrimexTransferencia
                     }
                     else
                     {
-                        MessageBox.Show("El embarque para el folio seleccionado " + _FolioMsp + " ya existe es el Embarque ID" + EMBARQUE_ID);
+                        MessageBox.Show("El embarque para el folio seleccionado " + _FolioMsp + " ya existe es el Embarque ID" + EMBARQUE_ID, "M", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }                   
                 }
                               
@@ -225,7 +225,7 @@ namespace FrimexTransferencia
             catch (Exception Ex)
             {
                 
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 if (cn.IsConected())
                     cn.Desconectar();
             }
@@ -275,8 +275,8 @@ namespace FrimexTransferencia
                     "','" + _conductor2 +
                     "','" + _nombre +
                     "','" + _placa +
-                    "','" + _fecha +
-                    "','" + _sellos +
+                    "',@Fecha" +
+                    ",'" + _sellos +
                     "', " + _estatus +
                     " , " + _producto +
                     " , " + _bodega +
@@ -286,6 +286,7 @@ namespace FrimexTransferencia
                     " ) ";
                 ConexionSQL.ConectarSQLServer();
                 cmd = new SqlCommand(consulta, ConexionSQL.SC);
+                cmd.Parameters.Add("@Fecha", SqlDbType.Date).Value = _fecha;
                 cmd.ExecuteNonQuery();
                 ConexionSQL.Desconectar();
 
@@ -299,8 +300,8 @@ namespace FrimexTransferencia
                     "'AND EMBARQUE_CONDUCTORP2='" + _conductor2 +
                     "'AND EMBARQUE_CHOFER='" + _nombre +
                     "'AND EMBARQUE_PLACA='" + _placa +
-                    "'AND EMBARQUE_FECHA='" + _fecha +
-                    "'AND EMBARQUE_SELLOS='" + _sellos +
+                    "'AND EMBARQUE_FECHA=@Fecha"  +
+                    " AND EMBARQUE_SELLOS='" + _sellos +
                     "'AND ESTATUS_ID=" + _estatus +
                     " AND PRODUCTO_ID=" + _producto +
                     " AND BODEGA_ID=" + _bodega +
@@ -310,6 +311,7 @@ namespace FrimexTransferencia
                                                             _complementoValues*/;
                 ConexionSQL.ConectarSQLServer();
                 cmd = new SqlCommand(consulta, ConexionSQL.SC);
+                cmd.Parameters.Add("@Fecha",SqlDbType.Date).Value= _fecha;
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -348,8 +350,8 @@ namespace FrimexTransferencia
                    " VALUES " +
                    " ( " + lote +
                    "  ,'" + _SERIE +
-                   "','" + _FECHA +
-                   "', " + _Usuario.USUARIOID.ToString() +
+                   "',@Fecha"  +
+                   ", " + _Usuario.USUARIOID.ToString() +
                    " ,'" + _TIPODOC +
                    "' ," + _OCID +
                    " , NULL" +
@@ -358,6 +360,7 @@ namespace FrimexTransferencia
                    " )";
 
             SqlCommand cmd = new SqlCommand(consulta, cn.SC);
+            cmd.Parameters.Add("@Fecha", SqlDbType.Date).Value = _FECHA;
             cmd.ExecuteNonQuery();
             cn.Desconectar();
             return lote;
@@ -418,7 +421,7 @@ namespace FrimexTransferencia
                     e.Handled = true;
             }
             if (msg_local.Length > 0)
-                MessageBox.Show(msg_local, "Error");
+                MessageBox.Show(msg_local, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         DataTable BuscarPedimento(int folio, out string msg)
@@ -463,6 +466,7 @@ namespace FrimexTransferencia
         }
         private void LimpiarFroma()
         {
+            tBFolioMSP.Enabled = true;
             tBCantReciv.Text = "";
             tBFolioMSP.Text = "";
             cBProducto.DataSource = null;

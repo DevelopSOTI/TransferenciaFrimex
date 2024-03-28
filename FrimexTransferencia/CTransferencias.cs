@@ -26,11 +26,13 @@ namespace FrimexTransferencia
                     " inner join TRANSFERENCIA_DETALLE as TD on T.TRANSFERENCIA_ID = TD.TRANSFERENCIA_ID " +
                     " inner join SUPERSACO as s on TD.SUPERSACO_ID = S.SUPERSACO_ID " +
                     " inner join PRODUCTO as p  on s.PRODUCTO_ID = p.PRODUCTO_ID or s.PRODUCTO_ID = p.PRODUCTO_MSP_ID " +
-                    " where T.TRANSFERENCIA_ESTATUS = '"+ESTATUS+"' and cast(t.TRANSFERENCIA_FECHA as date) between '"+FInicio.ToString("dd-MM-yyyy")+"' and '"+FFin.ToString("dd-MM-yyyy") +"' " +
+                    " where T.TRANSFERENCIA_ESTATUS = '"+ESTATUS+"' and cast(t.TRANSFERENCIA_FECHA as date) between @FechaIni and @FechaFin " +
                     " group by T.TRANSFERENCIA_ID,T.TRANSFERENCIA_FECHA,IFOR.ALMACEN_MSP_DESCRIPCION,IFDE.ALMACEN_MSP_DESCRIPCION,p.PRODUCTO_DESCRIPCION" +
                     " ORDER BY T.TRANSFERENCIA_ID";
                 cn.ConectarSQLServer();
                 _da = new SqlDataAdapter(consulta, cn.SC);
+                _da.SelectCommand.Parameters.Add("@FechaIni", SqlDbType.Date).Value = FInicio;
+                _da.SelectCommand.Parameters.Add("@FechaFin",SqlDbType.Date).Value=FFin;
                 _da.Fill(_datos);
                 _da.Dispose();
                 cn.Desconectar();
@@ -117,12 +119,13 @@ namespace FrimexTransferencia
              " ,[ALMACEN_DESTINO_ID]) " +
               " VALUES " +
              " ( " + FOLIO_TRANSFERENCIA +
-             " ,'" + FECHA + "'" +
-             " ,'" + ESTATUS + "'" +
+             " , @Fecha "  +
+             " , '" + ESTATUS + "'" +
              " , " + ALMACEN_ORIGEN +
              " , " + ALMACEN_DESTINO + ")";// Consulta para insertar el encabezado de la transferencia
 
                 SqlCommand cmdm = new SqlCommand(consulta, cn.SC, transaction);
+                cmdm.Parameters.Add("@Fecha", SqlDbType.Date).Value = Convert.ToDateTime(FECHA);
                 if (cmdm.ExecuteNonQuery() > 0)
                 {
                     consulta = "INSERT INTO [dbo].[REQ_TRA] " +
@@ -133,9 +136,10 @@ namespace FrimexTransferencia
                             " VALUES " +
                             " (" + REQ_ID +
                             " , " + FOLIO_TRANSFERENCIA +
-                            " , '" + FECHA + "'" +
+                            " , @Fecha " +
                             " ," + USUARIO.USUARIOID + ")";
                     cmdm = new SqlCommand(consulta, cn.SC, transaction);
+                    cmdm.Parameters.Add("@Fecha",SqlDbType.Date).Value = Convert.ToDateTime(FECHA);
                     if(cmdm.ExecuteNonQuery()>0)
                         _exito = true;
                     else

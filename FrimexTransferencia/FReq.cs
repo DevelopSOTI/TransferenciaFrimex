@@ -57,7 +57,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private string SiguienteRequisicion()
@@ -80,7 +80,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return _SigReq;
         }
@@ -230,15 +230,17 @@ namespace FrimexTransferencia
                                    " ,[REQUISICION_ESTATUS]) " +
                                    " VALUES " +
                                    " ( " + tBNoRequisicion.Text +
-                                   " ,'" + dTPFechaReq.Value.ToString("dd-MM-yyyy HH:mm:ss") + "'" +
+                                   " ,@Fecha1"  +
                                    " , " + _almacenID +
                                    " , " + _almacenDestinoID +
                                    " , " + _Usuario.USUARIOID +
-                                   " ,'" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + "'" +
+                                   " ,@Fecha2"  +
                                    " ,'A')";//Insertar encabezado con transaccion
                             SqlTransaction transaction = cn.SC.BeginTransaction();
 
                             SqlCommand cmdm = new SqlCommand(consulta, cn.SC, transaction);
+                            cmdm.Parameters.Add("@Fecha1", SqlDbType.Date).Value = DateTime.Now;
+                            cmdm.Parameters.Add("@Fecha2", SqlDbType.Date).Value = DateTime.Now;
                             if (cmdm.ExecuteNonQuery() > 0)
                             {
                                 //Insertar detalle de requisicion
@@ -294,7 +296,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void Limpiar()

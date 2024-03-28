@@ -63,7 +63,7 @@ namespace FrimexTransferencia
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "Error");
+                MessageBox.Show(Ex.Message, "Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
         }
         public DataTable CargarOrdenesCompraPendientesMicrosip(string IdProveedor, string ArticuloID)

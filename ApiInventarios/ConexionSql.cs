@@ -62,7 +62,7 @@ namespace ApiInventarios
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message,"Mensaje de la aplicación",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
         }
         public void Desconectar()
@@ -191,7 +191,7 @@ namespace ApiInventarios
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message, "error");
+                MessageBox.Show(Ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return _estatus;
         }
