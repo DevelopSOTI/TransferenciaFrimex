@@ -390,7 +390,7 @@ namespace FrimexTransferencia
                             tBTransferenciaID.Enabled = false;
                             if (_folio.Length > 0)
                             {
-                                CargarSupersacosTransferidos(_folio);
+                                //CargarSupersacosTransferidos(_folio);
                                 CargarSupersacosTransferencia(_folio);
 
                             }
@@ -537,7 +537,7 @@ namespace FrimexTransferencia
                 _ss = tBSupersacoID.Text.Trim();
                 if (_ss.Length > 0)
                 {
-                    DialogResult result = MessageBox.Show("¿Desea capruar el super saco " + _ss + "?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    DialogResult result = MessageBox.Show("¿Desea capturar el super saco " + _ss + "?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result == DialogResult.Yes)
                     {
                         DataRowView _dRVAlmacen = (DataRowView)cBAlmacen.SelectedItem;
@@ -552,6 +552,7 @@ namespace FrimexTransferencia
                             //else
                                 aux = ValidarDigitos(_PuertoSerie.DatoRecibido());
                             decimal valor;
+                            
                             
                             if (Decimal.TryParse(aux, out valor))
                             {

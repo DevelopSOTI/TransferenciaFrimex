@@ -741,13 +741,14 @@ namespace FrimexTransferencia
                                 " , " + SUPERSACO_ID +
                                 " , " + PRODUCTO_ID +
                                 " , " + SUPERSACO_CANTIDAD +
-                                " , " + FECHA +
-                                ", " + SUPERSACO_ESTATUS +
-                                "' ," + _Usuario.USUARIOID +
                                 " , @Fecha " +
+                                ", '" + SUPERSACO_ESTATUS +
+                                "' ," + _Usuario.USUARIOID +
+                                " , @Fecha2 " +
                                 ") ";
                             cmd = new SqlCommand(consulta, cn.SC);
                             cmd.Parameters.Add("@Fecha", SqlDbType.Date).Value = FECHA;
+                            cmd.Parameters.Add("@Fecha2", SqlDbType.Date).Value = FECHA;
                             cmd.ExecuteNonQuery();
                             cn.ConectarSQLServer();
                             cmd.Dispose();
@@ -874,9 +875,10 @@ namespace FrimexTransferencia
                     " , " + Producto_ID +
                     " , " + cantidad +
                     " ,'" + _tipoMovimiento + "' " +
-                    " ,'" + DateTime.Today.ToString("dd-MM-yyyy hh:mm:ss") +
-                    "' ," + LoteID + ")";
+                    " ,@Fecha" +
+                    " ," + LoteID + ")";
                 cmd = new SqlCommand(consulta, cn.SC);
+                cmd.Parameters.Add("@Fecha",SqlDbType.Date).Value = DateTime.Now;
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
                 cn.Desconectar();
