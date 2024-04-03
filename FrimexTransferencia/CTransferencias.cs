@@ -31,8 +31,8 @@ namespace FrimexTransferencia
                     " ORDER BY T.TRANSFERENCIA_ID";
                 cn.ConectarSQLServer();
                 _da = new SqlDataAdapter(consulta, cn.SC);
-                _da.SelectCommand.Parameters.Add("@FechaIni", SqlDbType.Date).Value = FInicio;
-                _da.SelectCommand.Parameters.Add("@FechaFin",SqlDbType.Date).Value=FFin;
+                _da.SelectCommand.Parameters.Add("@FechaIni", SqlDbType.DateTime2).Value = FInicio;
+                _da.SelectCommand.Parameters.Add("@FechaFin",SqlDbType.DateTime2).Value=FFin;
                 _da.Fill(_datos);
                 _da.Dispose();
                 cn.Desconectar();
@@ -125,7 +125,7 @@ namespace FrimexTransferencia
              " , " + ALMACEN_DESTINO + ")";// Consulta para insertar el encabezado de la transferencia
 
                 SqlCommand cmdm = new SqlCommand(consulta, cn.SC, transaction);
-                cmdm.Parameters.Add("@Fecha", SqlDbType.Date).Value = Convert.ToDateTime(FECHA);
+                cmdm.Parameters.Add("@Fecha", SqlDbType.DateTime2).Value = Convert.ToDateTime(FECHA);
                 if (cmdm.ExecuteNonQuery() > 0)
                 {
                     consulta = "INSERT INTO [dbo].[REQ_TRA] " +
@@ -139,7 +139,7 @@ namespace FrimexTransferencia
                             " , @Fecha " +
                             " ," + USUARIO.USUARIOID + ")";
                     cmdm = new SqlCommand(consulta, cn.SC, transaction);
-                    cmdm.Parameters.Add("@Fecha",SqlDbType.Date).Value = Convert.ToDateTime(FECHA);
+                    cmdm.Parameters.Add("@Fecha",SqlDbType.DateTime2).Value = Convert.ToDateTime(FECHA);
                     if(cmdm.ExecuteNonQuery()>0)
                         _exito = true;
                     else

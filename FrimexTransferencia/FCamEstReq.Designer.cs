@@ -36,17 +36,19 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 45);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(38, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 13);
+            this.label1.Size = new System.Drawing.Size(162, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Cambiar a Estatus:";
             // 
             // bCambiar
             // 
-            this.bCambiar.Location = new System.Drawing.Point(80, 110);
+            this.bCambiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bCambiar.Location = new System.Drawing.Point(67, 79);
             this.bCambiar.Name = "bCambiar";
-            this.bCambiar.Size = new System.Drawing.Size(75, 23);
+            this.bCambiar.Size = new System.Drawing.Size(94, 31);
             this.bCambiar.TabIndex = 2;
             this.bCambiar.Text = "Cambiar";
             this.bCambiar.UseVisualStyleBackColor = true;
@@ -66,7 +68,7 @@
             "Cancelada",
             "Pendiente",
             "Terminada"});
-            this.cBEstatus.Location = new System.Drawing.Point(42, 71);
+            this.cBEstatus.Location = new System.Drawing.Point(42, 52);
             this.cBEstatus.Name = "cBEstatus";
             this.cBEstatus.Size = new System.Drawing.Size(146, 21);
             this.cBEstatus.TabIndex = 3;
@@ -75,7 +77,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(231, 162);
+            this.ClientSize = new System.Drawing.Size(225, 142);
             this.Controls.Add(this.cBEstatus);
             this.Controls.Add(this.bCambiar);
             this.Controls.Add(this.label1);

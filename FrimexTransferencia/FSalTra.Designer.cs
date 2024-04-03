@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.tBSupersacoID = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -57,15 +57,21 @@
             this.lConecarBascula = new System.Windows.Forms.Label();
             this.lPesoBascula = new System.Windows.Forms.Label();
             this.tPesobascula = new System.Windows.Forms.Timer(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dGVSalida)).BeginInit();
             this.mSOpciones.SuspendLayout();
             this.pConectarPuerto.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 31);
+            this.label1.Location = new System.Drawing.Point(22, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(66, 13);
             this.label1.TabIndex = 0;
@@ -73,7 +79,7 @@
             // 
             // tBSupersacoID
             // 
-            this.tBSupersacoID.Location = new System.Drawing.Point(84, 28);
+            this.tBSupersacoID.Location = new System.Drawing.Point(94, 14);
             this.tBSupersacoID.Multiline = true;
             this.tBSupersacoID.Name = "tBSupersacoID";
             this.tBSupersacoID.Size = new System.Drawing.Size(100, 20);
@@ -83,7 +89,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 81);
+            this.label2.Location = new System.Drawing.Point(22, 67);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(166, 13);
             this.label2.TabIndex = 2;
@@ -101,11 +107,12 @@
             this.PRODUCTO,
             this.CANTIDAD,
             this.QUITAR});
-            this.dGVSalida.Location = new System.Drawing.Point(15, 97);
+            this.dGVSalida.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dGVSalida.Location = new System.Drawing.Point(3, 3);
             this.dGVSalida.Name = "dGVSalida";
             this.dGVSalida.ReadOnly = true;
             this.dGVSalida.RowHeadersVisible = false;
-            this.dGVSalida.Size = new System.Drawing.Size(436, 329);
+            this.dGVSalida.Size = new System.Drawing.Size(575, 347);
             this.dGVSalida.TabIndex = 3;
             this.dGVSalida.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGVSalida_CellContentClick);
             // 
@@ -132,8 +139,8 @@
             // 
             // CANTIDAD
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.CANTIDAD.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.CANTIDAD.DefaultCellStyle = dataGridViewCellStyle3;
             this.CANTIDAD.FillWeight = 45F;
             this.CANTIDAD.HeaderText = "CANT.";
             this.CANTIDAD.Name = "CANTIDAD";
@@ -150,9 +157,10 @@
             // 
             // bEmbarcar
             // 
-            this.bEmbarcar.Location = new System.Drawing.Point(12, 432);
+            this.bEmbarcar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bEmbarcar.Location = new System.Drawing.Point(3, 3);
             this.bEmbarcar.Name = "bEmbarcar";
-            this.bEmbarcar.Size = new System.Drawing.Size(439, 36);
+            this.bEmbarcar.Size = new System.Drawing.Size(575, 41);
             this.bEmbarcar.TabIndex = 4;
             this.bEmbarcar.Text = "Enviar Traspaso";
             this.bEmbarcar.UseVisualStyleBackColor = true;
@@ -160,7 +168,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(190, 26);
+            this.button1.Location = new System.Drawing.Point(200, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(54, 23);
             this.button1.TabIndex = 2;
@@ -180,7 +188,7 @@
             // tBFolioSalida
             // 
             this.tBFolioSalida.Enabled = false;
-            this.tBFolioSalida.Location = new System.Drawing.Point(351, 25);
+            this.tBFolioSalida.Location = new System.Drawing.Point(361, 11);
             this.tBFolioSalida.Name = "tBFolioSalida";
             this.tBFolioSalida.Size = new System.Drawing.Size(100, 20);
             this.tBFolioSalida.TabIndex = 6;
@@ -189,7 +197,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(258, 81);
+            this.label4.Location = new System.Drawing.Point(268, 67);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(61, 13);
             this.label4.TabIndex = 7;
@@ -198,7 +206,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 57);
+            this.label5.Location = new System.Drawing.Point(22, 43);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(48, 13);
             this.label5.TabIndex = 8;
@@ -208,7 +216,7 @@
             // 
             this.cBAlmacen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBAlmacen.FormattingEnabled = true;
-            this.cBAlmacen.Location = new System.Drawing.Point(83, 54);
+            this.cBAlmacen.Location = new System.Drawing.Point(93, 40);
             this.cBAlmacen.Name = "cBAlmacen";
             this.cBAlmacen.Size = new System.Drawing.Size(368, 21);
             this.cBAlmacen.TabIndex = 9;
@@ -219,7 +227,7 @@
             this.opcionesToolStripMenuItem});
             this.mSOpciones.Location = new System.Drawing.Point(0, 0);
             this.mSOpciones.Name = "mSOpciones";
-            this.mSOpciones.Size = new System.Drawing.Size(463, 24);
+            this.mSOpciones.Size = new System.Drawing.Size(581, 24);
             this.mSOpciones.TabIndex = 32;
             this.mSOpciones.Text = "mSOpciones";
             // 
@@ -257,29 +265,35 @@
             // 
             // pConectarPuerto
             // 
+            this.pConectarPuerto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pConectarPuerto.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pConectarPuerto.Controls.Add(this.lConecarBascula);
             this.pConectarPuerto.Controls.Add(this.cBPuertosDisponibles);
             this.pConectarPuerto.Controls.Add(this.bBuscarPuertos);
-            this.pConectarPuerto.Controls.Add(this.lConecarBascula);
             this.pConectarPuerto.Location = new System.Drawing.Point(0, 0);
             this.pConectarPuerto.Name = "pConectarPuerto";
-            this.pConectarPuerto.Size = new System.Drawing.Size(463, 480);
+            this.pConectarPuerto.Size = new System.Drawing.Size(581, 522);
             this.pConectarPuerto.TabIndex = 33;
             this.pConectarPuerto.Visible = false;
             // 
             // cBPuertosDisponibles
             // 
+            this.cBPuertosDisponibles.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cBPuertosDisponibles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBPuertosDisponibles.FormattingEnabled = true;
-            this.cBPuertosDisponibles.Location = new System.Drawing.Point(170, 237);
+            this.cBPuertosDisponibles.Location = new System.Drawing.Point(165, 214);
             this.cBPuertosDisponibles.Name = "cBPuertosDisponibles";
-            this.cBPuertosDisponibles.Size = new System.Drawing.Size(121, 21);
+            this.cBPuertosDisponibles.Size = new System.Drawing.Size(266, 21);
             this.cBPuertosDisponibles.TabIndex = 2;
             // 
             // bBuscarPuertos
             // 
-            this.bBuscarPuertos.Location = new System.Drawing.Point(190, 286);
+            this.bBuscarPuertos.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.bBuscarPuertos.Location = new System.Drawing.Point(207, 241);
             this.bBuscarPuertos.Name = "bBuscarPuertos";
-            this.bBuscarPuertos.Size = new System.Drawing.Size(75, 38);
+            this.bBuscarPuertos.Size = new System.Drawing.Size(156, 52);
             this.bBuscarPuertos.TabIndex = 1;
             this.bBuscarPuertos.Text = "Buscar Puertos ";
             this.bBuscarPuertos.UseVisualStyleBackColor = true;
@@ -287,17 +301,19 @@
             // 
             // lConecarBascula
             // 
+            this.lConecarBascula.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lConecarBascula.AutoSize = true;
-            this.lConecarBascula.Location = new System.Drawing.Point(187, 183);
+            this.lConecarBascula.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lConecarBascula.Location = new System.Drawing.Point(158, 174);
             this.lConecarBascula.Name = "lConecarBascula";
-            this.lConecarBascula.Size = new System.Drawing.Size(91, 13);
+            this.lConecarBascula.Size = new System.Drawing.Size(286, 37);
             this.lConecarBascula.TabIndex = 0;
             this.lConecarBascula.Text = "Conectar Bascula";
             // 
             // lPesoBascula
             // 
             this.lPesoBascula.AutoSize = true;
-            this.lPesoBascula.Location = new System.Drawing.Point(270, 38);
+            this.lPesoBascula.Location = new System.Drawing.Point(280, 24);
             this.lPesoBascula.Name = "lPesoBascula";
             this.lPesoBascula.Size = new System.Drawing.Size(0, 13);
             this.lPesoBascula.TabIndex = 34;
@@ -306,26 +322,57 @@
             // 
             this.tPesobascula.Tick += new System.EventHandler(this.tPesobascula_Tick);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.bEmbarcar);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 475);
+            this.panel1.Name = "panel1";
+            this.panel1.Padding = new System.Windows.Forms.Padding(3);
+            this.panel1.Size = new System.Drawing.Size(581, 47);
+            this.panel1.TabIndex = 35;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.tBSupersacoID);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.lPesoBascula);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.tBFolioSalida);
+            this.panel2.Controls.Add(this.cBAlmacen);
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.label5);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 24);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(581, 98);
+            this.panel2.TabIndex = 36;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.dGVSalida);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 122);
+            this.panel3.Name = "panel3";
+            this.panel3.Padding = new System.Windows.Forms.Padding(3);
+            this.panel3.Size = new System.Drawing.Size(581, 353);
+            this.panel3.TabIndex = 37;
+            // 
             // FSalTra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(463, 480);
-            this.Controls.Add(this.lPesoBascula);
+            this.ClientSize = new System.Drawing.Size(581, 522);
             this.Controls.Add(this.pConectarPuerto);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.mSOpciones);
-            this.Controls.Add(this.cBAlmacen);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.tBFolioSalida);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.bEmbarcar);
-            this.Controls.Add(this.dGVSalida);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.tBSupersacoID);
-            this.Controls.Add(this.label1);
+            this.MinimumSize = new System.Drawing.Size(597, 561);
             this.Name = "FSalTra";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Salida de Súper Sacos";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FSalTra_FormClosing);
@@ -335,6 +382,10 @@
             this.mSOpciones.PerformLayout();
             this.pConectarPuerto.ResumeLayout(false);
             this.pConectarPuerto.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -369,5 +420,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PRODUCTO;
         private System.Windows.Forms.DataGridViewTextBoxColumn CANTIDAD;
         private System.Windows.Forms.DataGridViewButtonColumn QUITAR;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel3;
     }
 }

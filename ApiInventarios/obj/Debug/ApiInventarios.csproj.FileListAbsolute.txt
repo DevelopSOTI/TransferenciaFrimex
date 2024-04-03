@@ -43,3 +43,14 @@ E:\Users\César\source\repos\FrimexTransferencia\ApiInventarios\obj\Debug\ApiInv
 E:\Users\César\source\repos\FrimexTransferencia\ApiInventarios\obj\Debug\ApiInventarios.csproj.CopyComplete
 E:\Users\César\source\repos\FrimexTransferencia\ApiInventarios\obj\Debug\ApiInventarios.exe
 E:\Users\César\source\repos\FrimexTransferencia\ApiInventarios\obj\Debug\ApiInventarios.pdb
+C:\Users\Desarrollo\source\repos\FrimexTransferencia\ApiInventarios\bin\Debug\ApiInventarios.exe.config
+C:\Users\Desarrollo\source\repos\FrimexTransferencia\ApiInventarios\bin\Debug\ApiInventarios.exe
+C:\Users\Desarrollo\source\repos\FrimexTransferencia\ApiInventarios\bin\Debug\ApiInventarios.pdb
+C:\Users\Desarrollo\source\repos\FrimexTransferencia\ApiInventarios\obj\Debug\ApiInventarios.csproj.AssemblyReference.cache
+C:\Users\Desarrollo\source\repos\FrimexTransferencia\ApiInventarios\obj\Debug\ApiInventarios.ApiInvent.resources
+C:\Users\Desarrollo\source\repos\FrimexTransferencia\ApiInventarios\obj\Debug\ApiInventarios.Properties.Resources.resources
+C:\Users\Desarrollo\source\repos\FrimexTransferencia\ApiInventarios\obj\Debug\ApiInventarios.csproj.GenerateResource.cache
+C:\Users\Desarrollo\source\repos\FrimexTransferencia\ApiInventarios\obj\Debug\ApiInventarios.csproj.CoreCompileInputs.cache
+C:\Users\Desarrollo\source\repos\FrimexTransferencia\ApiInventarios\obj\Debug\ApiInventarios.csproj.CopyComplete
+C:\Users\Desarrollo\source\repos\FrimexTransferencia\ApiInventarios\obj\Debug\ApiInventarios.exe
+C:\Users\Desarrollo\source\repos\FrimexTransferencia\ApiInventarios\obj\Debug\ApiInventarios.pdb

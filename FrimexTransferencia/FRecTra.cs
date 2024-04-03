@@ -358,7 +358,19 @@ namespace FrimexTransferencia
                     if (!BuscarSupersacoEnRecibidos(Convert.ToString(reader["SUPERSACO_ID"])))
                         dGVRecibidos.Rows[i].DefaultCellStyle.BackColor = Color.LightYellow;
                     else
+                    {
                         dGVRecibidos.Rows[i].DefaultCellStyle.BackColor = Color.LightGreen;
+                        //pintamos el dgv de recibidos a verde tambien
+                        for (int j = 0; j < dGVAsignados.RowCount; j++)
+                        {
+                            if (dGVAsignados["SUPERSACO_ID", j].Value.ToString().Equals(Convert.ToString(reader["SUPERSACO_ID"])))
+                            {
+                                dGVAsignados.Rows[j].DefaultCellStyle.BackColor = Color.LightGreen;
+                                break;
+                            }
+                                
+                        }
+                    }
                     i++;
                 }
                 cmdm.Dispose();

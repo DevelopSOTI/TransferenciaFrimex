@@ -43,7 +43,7 @@
             this.labelIniciarSesion.BackColor = System.Drawing.Color.Transparent;
             this.labelIniciarSesion.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelIniciarSesion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.labelIniciarSesion.Location = new System.Drawing.Point(12, 9);
+            this.labelIniciarSesion.Location = new System.Drawing.Point(7, 9);
             this.labelIniciarSesion.Name = "labelIniciarSesion";
             this.labelIniciarSesion.Size = new System.Drawing.Size(233, 22);
             this.labelIniciarSesion.TabIndex = 12;

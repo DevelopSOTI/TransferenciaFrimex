@@ -59,7 +59,7 @@
             this.dGVRequisiciones.Location = new System.Drawing.Point(12, 61);
             this.dGVRequisiciones.Name = "dGVRequisiciones";
             this.dGVRequisiciones.RowHeadersVisible = false;
-            this.dGVRequisiciones.Size = new System.Drawing.Size(546, 370);
+            this.dGVRequisiciones.Size = new System.Drawing.Size(508, 377);
             this.dGVRequisiciones.TabIndex = 6;
             this.dGVRequisiciones.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGVRequisiciones_CellClick);
             // 
@@ -119,7 +119,7 @@
             "Canceladas",
             "Pendientes",
             "Terminadas"});
-            this.cBAlmacen.Location = new System.Drawing.Point(76, 29);
+            this.cBAlmacen.Location = new System.Drawing.Point(12, 25);
             this.cBAlmacen.Name = "cBAlmacen";
             this.cBAlmacen.Size = new System.Drawing.Size(263, 21);
             this.cBAlmacen.TabIndex = 4;
@@ -128,7 +128,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 33);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(48, 13);
             this.label1.TabIndex = 7;
@@ -138,11 +138,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(570, 443);
+            this.ClientSize = new System.Drawing.Size(532, 450);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dGVRequisiciones);
             this.Controls.Add(this.cBAlmacen);
+            this.MinimumSize = new System.Drawing.Size(548, 489);
             this.Name = "FVerReqTra";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Requisiciónes Pendientes";
             this.Load += new System.EventHandler(this.FVerReqTra_Load);

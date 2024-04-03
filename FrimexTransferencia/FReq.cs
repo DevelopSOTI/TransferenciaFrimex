@@ -239,8 +239,8 @@ namespace FrimexTransferencia
                             SqlTransaction transaction = cn.SC.BeginTransaction();
 
                             SqlCommand cmdm = new SqlCommand(consulta, cn.SC, transaction);
-                            cmdm.Parameters.Add("@Fecha1", SqlDbType.Date).Value = DateTime.Now;
-                            cmdm.Parameters.Add("@Fecha2", SqlDbType.Date).Value = DateTime.Now;
+                            cmdm.Parameters.Add("@Fecha1", SqlDbType.DateTime2).Value = DateTime.Now;
+                            cmdm.Parameters.Add("@Fecha2", SqlDbType.DateTime2).Value = DateTime.Now;
                             if (cmdm.ExecuteNonQuery() > 0)
                             {
                                 //Insertar detalle de requisicion

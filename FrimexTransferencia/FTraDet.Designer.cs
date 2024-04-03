@@ -30,9 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FTraDet));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dGVDatos = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGVDatos)).BeginInit();
@@ -44,31 +44,8 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(839, 46);
+            this.panel1.Size = new System.Drawing.Size(521, 46);
             this.panel1.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.dGVDatos);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 46);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(839, 222);
-            this.panel2.TabIndex = 1;
-            // 
-            // dGVDatos
-            // 
-            this.dGVDatos.AllowUserToAddRows = false;
-            this.dGVDatos.AllowUserToDeleteRows = false;
-            this.dGVDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGVDatos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dGVDatos.Location = new System.Drawing.Point(0, 0);
-            this.dGVDatos.Name = "dGVDatos";
-            this.dGVDatos.ReadOnly = true;
-            this.dGVDatos.RowHeadersVisible = false;
-            this.dGVDatos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dGVDatos.Size = new System.Drawing.Size(839, 222);
-            this.dGVDatos.TabIndex = 0;
             // 
             // label1
             // 
@@ -79,15 +56,40 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Peso total de la transferencia:";
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.dGVDatos);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 46);
+            this.panel2.Name = "panel2";
+            this.panel2.Padding = new System.Windows.Forms.Padding(3);
+            this.panel2.Size = new System.Drawing.Size(521, 202);
+            this.panel2.TabIndex = 1;
+            // 
+            // dGVDatos
+            // 
+            this.dGVDatos.AllowUserToAddRows = false;
+            this.dGVDatos.AllowUserToDeleteRows = false;
+            this.dGVDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGVDatos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dGVDatos.Location = new System.Drawing.Point(3, 3);
+            this.dGVDatos.Name = "dGVDatos";
+            this.dGVDatos.ReadOnly = true;
+            this.dGVDatos.RowHeadersVisible = false;
+            this.dGVDatos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dGVDatos.Size = new System.Drawing.Size(515, 196);
+            this.dGVDatos.TabIndex = 0;
+            // 
             // FTraDet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(839, 268);
+            this.ClientSize = new System.Drawing.Size(521, 248);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(537, 287);
             this.Name = "FTraDet";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Detalle de Transferencia ";

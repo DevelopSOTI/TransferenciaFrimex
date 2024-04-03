@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.nUDSupersacos = new System.Windows.Forms.NumericUpDown();
             this.lSuperSacos = new System.Windows.Forms.Label();
             this.lCantidadRecibida = new System.Windows.Forms.Label();
@@ -67,17 +67,30 @@
             this.Estatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SupersacoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tBEmbarqueRecibir = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.nUDSupersacos)).BeginInit();
             this.mSOpciones.SuspendLayout();
             this.gBGeneral.SuspendLayout();
             this.pConectarPuerto.SuspendLayout();
             this.gBSuperSacos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGVSupersacos)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // nUDSupersacos
             // 
-            this.nUDSupersacos.Location = new System.Drawing.Point(121, 19);
+            this.nUDSupersacos.Location = new System.Drawing.Point(129, 21);
             this.nUDSupersacos.Minimum = new decimal(new int[] {
             1,
             0,
@@ -96,7 +109,7 @@
             // lSuperSacos
             // 
             this.lSuperSacos.AutoSize = true;
-            this.lSuperSacos.Location = new System.Drawing.Point(7, 20);
+            this.lSuperSacos.Location = new System.Drawing.Point(15, 22);
             this.lSuperSacos.Name = "lSuperSacos";
             this.lSuperSacos.Size = new System.Drawing.Size(108, 13);
             this.lSuperSacos.TabIndex = 0;
@@ -116,7 +129,7 @@
             this.opcionesToolStripMenuItem});
             this.mSOpciones.Location = new System.Drawing.Point(0, 0);
             this.mSOpciones.Name = "mSOpciones";
-            this.mSOpciones.Size = new System.Drawing.Size(856, 24);
+            this.mSOpciones.Size = new System.Drawing.Size(1123, 24);
             this.mSOpciones.TabIndex = 31;
             this.mSOpciones.Text = "mSOpciones";
             // 
@@ -154,18 +167,20 @@
             // 
             // cBPuertosDisponibles
             // 
+            this.cBPuertosDisponibles.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cBPuertosDisponibles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBPuertosDisponibles.FormattingEnabled = true;
-            this.cBPuertosDisponibles.Location = new System.Drawing.Point(288, 90);
+            this.cBPuertosDisponibles.Location = new System.Drawing.Point(297, 242);
             this.cBPuertosDisponibles.Name = "cBPuertosDisponibles";
-            this.cBPuertosDisponibles.Size = new System.Drawing.Size(121, 21);
+            this.cBPuertosDisponibles.Size = new System.Drawing.Size(279, 21);
             this.cBPuertosDisponibles.TabIndex = 2;
             // 
             // bBuscarPuertos
             // 
-            this.bBuscarPuertos.Location = new System.Drawing.Point(308, 139);
+            this.bBuscarPuertos.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.bBuscarPuertos.Location = new System.Drawing.Point(356, 269);
             this.bBuscarPuertos.Name = "bBuscarPuertos";
-            this.bBuscarPuertos.Size = new System.Drawing.Size(75, 38);
+            this.bBuscarPuertos.Size = new System.Drawing.Size(161, 66);
             this.bBuscarPuertos.TabIndex = 1;
             this.bBuscarPuertos.Text = "Buscar Puertos ";
             this.bBuscarPuertos.UseVisualStyleBackColor = true;
@@ -173,10 +188,12 @@
             // 
             // lConecarBascula
             // 
+            this.lConecarBascula.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lConecarBascula.AutoSize = true;
-            this.lConecarBascula.Location = new System.Drawing.Point(305, 36);
+            this.lConecarBascula.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lConecarBascula.Location = new System.Drawing.Point(290, 202);
             this.lConecarBascula.Name = "lConecarBascula";
-            this.lConecarBascula.Size = new System.Drawing.Size(91, 13);
+            this.lConecarBascula.Size = new System.Drawing.Size(286, 37);
             this.lConecarBascula.TabIndex = 0;
             this.lConecarBascula.Text = "Conectar Bascula";
             // 
@@ -196,16 +213,18 @@
             this.gBGeneral.Controls.Add(this.bAsignar);
             this.gBGeneral.Controls.Add(this.cBProducto);
             this.gBGeneral.Controls.Add(this.lProducto);
-            this.gBGeneral.Location = new System.Drawing.Point(17, 80);
+            this.gBGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gBGeneral.Location = new System.Drawing.Point(0, 0);
             this.gBGeneral.Name = "gBGeneral";
-            this.gBGeneral.Size = new System.Drawing.Size(267, 167);
+            this.gBGeneral.Size = new System.Drawing.Size(303, 662);
             this.gBGeneral.TabIndex = 28;
             this.gBGeneral.TabStop = false;
             this.gBGeneral.Text = "General";
             // 
             // bCerrarRecepcion
             // 
-            this.bCerrarRecepcion.Location = new System.Drawing.Point(6, 109);
+            this.bCerrarRecepcion.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.bCerrarRecepcion.Location = new System.Drawing.Point(20, 109);
             this.bCerrarRecepcion.Name = "bCerrarRecepcion";
             this.bCerrarRecepcion.Size = new System.Drawing.Size(249, 36);
             this.bCerrarRecepcion.TabIndex = 7;
@@ -215,8 +234,9 @@
             // 
             // tBSerie
             // 
+            this.tBSerie.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tBSerie.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.tBSerie.Location = new System.Drawing.Point(209, 23);
+            this.tBSerie.Location = new System.Drawing.Point(223, 23);
             this.tBSerie.MaxLength = 1;
             this.tBSerie.Name = "tBSerie";
             this.tBSerie.Size = new System.Drawing.Size(57, 20);
@@ -225,8 +245,9 @@
             // 
             // lSerie
             // 
+            this.lSerie.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lSerie.AutoSize = true;
-            this.lSerie.Location = new System.Drawing.Point(169, 26);
+            this.lSerie.Location = new System.Drawing.Point(183, 26);
             this.lSerie.Name = "lSerie";
             this.lSerie.Size = new System.Drawing.Size(34, 13);
             this.lSerie.TabIndex = 5;
@@ -234,7 +255,8 @@
             // 
             // bAsignar
             // 
-            this.bAsignar.Location = new System.Drawing.Point(234, 49);
+            this.bAsignar.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.bAsignar.Location = new System.Drawing.Point(248, 49);
             this.bAsignar.Name = "bAsignar";
             this.bAsignar.Size = new System.Drawing.Size(32, 23);
             this.bAsignar.TabIndex = 4;
@@ -244,17 +266,19 @@
             // 
             // cBProducto
             // 
+            this.cBProducto.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cBProducto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBProducto.FormattingEnabled = true;
-            this.cBProducto.Location = new System.Drawing.Point(11, 51);
+            this.cBProducto.Location = new System.Drawing.Point(25, 51);
             this.cBProducto.Name = "cBProducto";
             this.cBProducto.Size = new System.Drawing.Size(212, 21);
             this.cBProducto.TabIndex = 1;
             // 
             // lProducto
             // 
+            this.lProducto.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lProducto.AutoSize = true;
-            this.lProducto.Location = new System.Drawing.Point(9, 30);
+            this.lProducto.Location = new System.Drawing.Point(23, 30);
             this.lProducto.Name = "lProducto";
             this.lProducto.Size = new System.Drawing.Size(50, 13);
             this.lProducto.TabIndex = 0;
@@ -263,7 +287,7 @@
             // lEmbarquesRecibidos
             // 
             this.lEmbarquesRecibidos.AutoSize = true;
-            this.lEmbarquesRecibidos.Location = new System.Drawing.Point(20, 47);
+            this.lEmbarquesRecibidos.Location = new System.Drawing.Point(12, 8);
             this.lEmbarquesRecibidos.Name = "lEmbarquesRecibidos";
             this.lEmbarquesRecibidos.Size = new System.Drawing.Size(97, 13);
             this.lEmbarquesRecibidos.TabIndex = 30;
@@ -271,33 +295,34 @@
             // 
             // pConectarPuerto
             // 
+            this.pConectarPuerto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pConectarPuerto.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.pConectarPuerto.Controls.Add(this.cBPuertosDisponibles);
             this.pConectarPuerto.Controls.Add(this.bBuscarPuertos);
             this.pConectarPuerto.Controls.Add(this.lConecarBascula);
-            this.pConectarPuerto.Location = new System.Drawing.Point(290, 59);
+            this.pConectarPuerto.Location = new System.Drawing.Point(313, 3);
             this.pConectarPuerto.Name = "pConectarPuerto";
-            this.pConectarPuerto.Size = new System.Drawing.Size(554, 598);
+            this.pConectarPuerto.Size = new System.Drawing.Size(810, 665);
             this.pConectarPuerto.TabIndex = 32;
             this.pConectarPuerto.Visible = false;
             // 
             // gBSuperSacos
             // 
-            this.gBSuperSacos.Controls.Add(this.bActivar);
-            this.gBSuperSacos.Controls.Add(this.cBAlmacen);
-            this.gBSuperSacos.Controls.Add(this.lAlmacen);
-            this.gBSuperSacos.Controls.Add(this.dGVSupersacos);
-            this.gBSuperSacos.Controls.Add(this.nUDSupersacos);
-            this.gBSuperSacos.Controls.Add(this.lSuperSacos);
-            this.gBSuperSacos.Location = new System.Drawing.Point(287, 59);
+            this.gBSuperSacos.Controls.Add(this.panel4);
+            this.gBSuperSacos.Controls.Add(this.panel3);
+            this.gBSuperSacos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gBSuperSacos.Location = new System.Drawing.Point(0, 0);
             this.gBSuperSacos.Name = "gBSuperSacos";
-            this.gBSuperSacos.Size = new System.Drawing.Size(557, 597);
+            this.gBSuperSacos.Size = new System.Drawing.Size(810, 662);
             this.gBSuperSacos.TabIndex = 27;
             this.gBSuperSacos.TabStop = false;
             this.gBSuperSacos.Text = "Supersacos";
             // 
             // bActivar
             // 
-            this.bActivar.Location = new System.Drawing.Point(462, 16);
+            this.bActivar.Location = new System.Drawing.Point(470, 18);
             this.bActivar.Name = "bActivar";
             this.bActivar.Size = new System.Drawing.Size(69, 23);
             this.bActivar.TabIndex = 5;
@@ -311,7 +336,7 @@
             this.cBAlmacen.FormattingEnabled = true;
             this.cBAlmacen.Items.AddRange(new object[] {
             "Bodega Tanques"});
-            this.cBAlmacen.Location = new System.Drawing.Point(239, 18);
+            this.cBAlmacen.Location = new System.Drawing.Point(247, 20);
             this.cBAlmacen.Name = "cBAlmacen";
             this.cBAlmacen.Size = new System.Drawing.Size(190, 21);
             this.cBAlmacen.TabIndex = 4;
@@ -319,7 +344,7 @@
             // lAlmacen
             // 
             this.lAlmacen.AutoSize = true;
-            this.lAlmacen.Location = new System.Drawing.Point(182, 21);
+            this.lAlmacen.Location = new System.Drawing.Point(190, 23);
             this.lAlmacen.Name = "lAlmacen";
             this.lAlmacen.Size = new System.Drawing.Size(51, 13);
             this.lAlmacen.TabIndex = 3;
@@ -330,14 +355,14 @@
             this.dGVSupersacos.AllowUserToAddRows = false;
             this.dGVSupersacos.AllowUserToDeleteRows = false;
             this.dGVSupersacos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dGVSupersacos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dGVSupersacos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dGVSupersacos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dGVSupersacos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Numero,
@@ -350,11 +375,12 @@
             this.EmbarqueID,
             this.Estatus,
             this.SupersacoID});
-            this.dGVSupersacos.Location = new System.Drawing.Point(3, 46);
+            this.dGVSupersacos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dGVSupersacos.Location = new System.Drawing.Point(3, 3);
             this.dGVSupersacos.Name = "dGVSupersacos";
             this.dGVSupersacos.ReadOnly = true;
             this.dGVSupersacos.RowHeadersVisible = false;
-            this.dGVSupersacos.Size = new System.Drawing.Size(554, 545);
+            this.dGVSupersacos.Size = new System.Drawing.Size(798, 572);
             this.dGVSupersacos.TabIndex = 2;
             this.dGVSupersacos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGVSupersacos_CellContentClick);
             // 
@@ -367,11 +393,11 @@
             // 
             // Peso
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.Format = "N2";
-            dataGridViewCellStyle4.NullValue = "0";
-            this.Peso.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = "0";
+            this.Peso.DefaultCellStyle = dataGridViewCellStyle2;
             this.Peso.FillWeight = 61.59804F;
             this.Peso.HeaderText = "Peso(Kg)";
             this.Peso.Name = "Peso";
@@ -437,26 +463,86 @@
             // 
             // tBEmbarqueRecibir
             // 
-            this.tBEmbarqueRecibir.Location = new System.Drawing.Point(128, 44);
+            this.tBEmbarqueRecibir.Location = new System.Drawing.Point(15, 24);
             this.tBEmbarqueRecibir.Name = "tBEmbarqueRecibir";
             this.tBEmbarqueRecibir.Size = new System.Drawing.Size(147, 20);
             this.tBEmbarqueRecibir.TabIndex = 35;
             this.tBEmbarqueRecibir.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tBEmbarqueRecibir_KeyPress);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lEmbarquesRecibidos);
+            this.panel1.Controls.Add(this.tBEmbarqueRecibir);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 24);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1123, 57);
+            this.panel1.TabIndex = 36;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.pConectarPuerto);
+            this.panel2.Controls.Add(this.splitContainer1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 81);
+            this.panel2.Name = "panel2";
+            this.panel2.Padding = new System.Windows.Forms.Padding(3);
+            this.panel2.Size = new System.Drawing.Size(1123, 668);
+            this.panel2.TabIndex = 37;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.gBGeneral);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.gBSuperSacos);
+            this.splitContainer1.Size = new System.Drawing.Size(1117, 662);
+            this.splitContainer1.SplitterDistance = 303;
+            this.splitContainer1.TabIndex = 29;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.lSuperSacos);
+            this.panel3.Controls.Add(this.bActivar);
+            this.panel3.Controls.Add(this.nUDSupersacos);
+            this.panel3.Controls.Add(this.cBAlmacen);
+            this.panel3.Controls.Add(this.lAlmacen);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(3, 16);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(804, 65);
+            this.panel3.TabIndex = 6;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.dGVSupersacos);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(3, 81);
+            this.panel4.Name = "panel4";
+            this.panel4.Padding = new System.Windows.Forms.Padding(3);
+            this.panel4.Size = new System.Drawing.Size(804, 578);
+            this.panel4.TabIndex = 7;
+            // 
             // FRecEmb
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(856, 664);
-            this.Controls.Add(this.tBEmbarqueRecibir);
+            this.ClientSize = new System.Drawing.Size(1123, 749);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.lCantidadRecibida);
             this.Controls.Add(this.mSOpciones);
             this.Controls.Add(this.lEmbarqueSeleccionado);
-            this.Controls.Add(this.gBGeneral);
-            this.Controls.Add(this.lEmbarquesRecibidos);
-            this.Controls.Add(this.pConectarPuerto);
-            this.Controls.Add(this.gBSuperSacos);
+            this.MinimumSize = new System.Drawing.Size(1139, 788);
             this.Name = "FRecEmb";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Recepción de Mercancia";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FRecEmb_FormClosing);
@@ -469,8 +555,17 @@
             this.pConectarPuerto.ResumeLayout(false);
             this.pConectarPuerto.PerformLayout();
             this.gBSuperSacos.ResumeLayout(false);
-            this.gBSuperSacos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGVSupersacos)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -515,5 +610,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn EmbarqueID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Estatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn SupersacoID;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }

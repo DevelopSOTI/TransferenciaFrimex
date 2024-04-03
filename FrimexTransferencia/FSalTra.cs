@@ -296,12 +296,13 @@ namespace FrimexTransferencia
                         //{
                             if (transferencias.ActualizarEstatusTransferencia(_FolioTransferencia, "A", cn, transaction))
                             {
-                                if (_AlmacenDestino == "1221")
+                                /*if (_AlmacenDestino == "1221")
                                     _AlmacenDestino = "ALMACEN GENERAL";
                                 else if (_AlmacenDestino == "1222")
                                     _AlmacenDestino = "BODEGA RENTADA";
                                 else if (_AlmacenDestino == "1223")
-                                    _AlmacenDestino = "TANQUES";
+                                    _AlmacenDestino = "TANQUES";*/
+                                BuscarAlmacen( ref _AlmacenDestino,cn,transaction);
 
                                 FImpTra fImpTra = new FImpTra();
                                 fImpTra.Usuario = _Usuario;
@@ -439,6 +440,18 @@ namespace FrimexTransferencia
             }
     
         }
+
+        private void BuscarAlmacen(ref string almacenDestino, ConexionSql cn, SqlTransaction transaction)
+        {
+            string query = "select * from INVENTARIO_FRIMEX WHERE INVENTARIO_FRIMEX_ID = " + almacenDestino;
+            SqlCommand sc = new SqlCommand(query, cn.SC, transaction);
+            SqlDataReader sdr = sc.ExecuteReader();
+            while (sdr.Read())
+                almacenDestino = Convert.ToString(sdr["ALMACEN_MSP_DESCRIPCION"]);
+            sc.Dispose();
+            sdr.Close();
+        }
+
         private List<string[,]> SupersacosEnGrid()
         {
             List<string[,]> _SS = new List<string[,]>();

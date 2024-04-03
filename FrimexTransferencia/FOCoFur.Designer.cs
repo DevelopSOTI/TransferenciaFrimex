@@ -149,7 +149,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(294, 210);
+            this.ClientSize = new System.Drawing.Size(292, 191);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.bCancelar);
             this.Controls.Add(this.cBProducto);
@@ -162,6 +162,8 @@
             this.Controls.Add(this.cBFurgon);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximumSize = new System.Drawing.Size(308, 230);
+            this.MinimumSize = new System.Drawing.Size(308, 230);
             this.Name = "FOCoFur";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Orden de compra - Furgón";

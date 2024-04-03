@@ -704,7 +704,7 @@ namespace FrimexTransferencia
                                 ",'N')";
                             cn.ConectarSQLServer();
                             cmd = new SqlCommand(consulta, cn.SC);
-                            cmd.Parameters.Add("@Fecha", SqlDbType.Date).Value = FECHA;
+                            cmd.Parameters.Add("@Fecha", SqlDbType.DateTime2).Value = FECHA;
                             cmd.ExecuteNonQuery();
                             //buscar el Id de supersaco
                             consulta = "SELECT SUPERSACO_ID FROM  [dbo].[SUPERSACO] WHERE " +
@@ -715,9 +715,9 @@ namespace FrimexTransferencia
                                 " AND LOTE_ID= " + _loteID +
                                 " AND SUPERSACO_ESTATUS= '" + SUPERSACO_ESTATUS + "'";
                             cmd = new SqlCommand(consulta, cn.SC);
-                            cmd.Parameters.Add("@Fecha",SqlDbType.Date).Value = FECHA;
+                            cmd.Parameters.Add("@Fecha",SqlDbType.DateTime2).Value = FECHA;
                             SqlCommand sc = new SqlCommand(consulta, cn.SC);
-                            sc.Parameters.Add("@Fecha",SqlDbType.Date).Value = FECHA;
+                            sc.Parameters.Add("@Fecha",SqlDbType.DateTime2).Value = FECHA;
                             SqlDataReader reader = sc.ExecuteReader();
                             while (reader.Read())
                             {
@@ -747,8 +747,8 @@ namespace FrimexTransferencia
                                 " , @Fecha2 " +
                                 ") ";
                             cmd = new SqlCommand(consulta, cn.SC);
-                            cmd.Parameters.Add("@Fecha", SqlDbType.Date).Value = FECHA;
-                            cmd.Parameters.Add("@Fecha2", SqlDbType.Date).Value = FECHA;
+                            cmd.Parameters.Add("@Fecha", SqlDbType.DateTime2).Value = FECHA;
+                            cmd.Parameters.Add("@Fecha2", SqlDbType.DateTime2).Value = FECHA;
                             cmd.ExecuteNonQuery();
                             cn.ConectarSQLServer();
                             cmd.Dispose();
@@ -878,7 +878,7 @@ namespace FrimexTransferencia
                     " ,@Fecha" +
                     " ," + LoteID + ")";
                 cmd = new SqlCommand(consulta, cn.SC);
-                cmd.Parameters.Add("@Fecha",SqlDbType.Date).Value = DateTime.Now;
+                cmd.Parameters.Add("@Fecha",SqlDbType.DateTime2).Value = DateTime.Now;
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
                 cn.Desconectar();
@@ -926,7 +926,7 @@ namespace FrimexTransferencia
                         " ,'" + Almacen_desc +
                         "') ";
                     cmd = new SqlCommand(consulta, cn.SC);
-                    cmd.Parameters.Add("@Fecha",SqlDbType.Date).Value = DateTime.Now;
+                    cmd.Parameters.Add("@Fecha",SqlDbType.DateTime2).Value = DateTime.Now;
                     cmd.ExecuteNonQuery();
                 }
                 consulta = "select * from INVENTARIO_FRIMEX " +
@@ -986,7 +986,7 @@ namespace FrimexTransferencia
                 reader.Close();
                 cmd = new SqlCommand(consulta, cn.SC);
                 if (!_Existe)
-                    cmd.Parameters.Add("@Fecha", SqlDbType.Date).Value = _Fecha;
+                    cmd.Parameters.Add("@Fecha", SqlDbType.DateTime2).Value = _Fecha;
                 cmd.ExecuteNonQuery();
                 consulta = "select INVENTARIO_SUPERSACO_ID " +
                    " from inventario_supersaco " +
@@ -1136,6 +1136,7 @@ namespace FrimexTransferencia
                                 dGVSupersacos["CapturarPeso", 0].Value = "Capturar...";
                                 dGVSupersacos["Agregar", 0].Value = "Agregar";
                                 dGVSupersacos["Imprimir", 0].Value = "Imprimir";
+                                tBSerie.Text = "A";
                             }
                         }
                         else
@@ -1504,7 +1505,7 @@ namespace FrimexTransferencia
 
                 ConexionSQL.ConectarSQLServer();
                 cmd = new SqlCommand(consulta, ConexionSQL.SC);
-                cmd.Parameters.Add("@Fecha", SqlDbType.Date).Value = Fecha;
+                cmd.Parameters.Add("@Fecha", SqlDbType.DateTime2).Value = Fecha;
                 cmd.ExecuteNonQuery();
                 cmd.Cancel();
                 ConexionSQL.Desconectar();
@@ -1562,7 +1563,7 @@ namespace FrimexTransferencia
                     " , " + RecepcionID +
                     " ) ";
                 cmd = new SqlCommand(consulta, cn.SC);
-                cmd.Parameters.Add("@Fecha", SqlDbType.Date).Value = FECHA;
+                cmd.Parameters.Add("@Fecha", SqlDbType.DateTime2).Value = FECHA;
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
                 cn.Desconectar();

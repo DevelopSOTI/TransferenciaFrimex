@@ -177,9 +177,9 @@ namespace FrimexTransferencia
                     "', " + IMPORTE + ")";
                 SqlCommand cmd = new SqlCommand(consulta, cn.SC);
 
-                cmd.Parameters.Add("@Fecha1", SqlDbType.Date).Value = _fecha;
-                cmd.Parameters.Add("@Fecha2", SqlDbType.Date).Value = _fecha;
-                cmd.Parameters.Add("@Fecha3", SqlDbType.Date).Value = FECHA;
+                cmd.Parameters.Add("@Fecha1", SqlDbType.DateTime2).Value = _fecha;
+                cmd.Parameters.Add("@Fecha2", SqlDbType.DateTime2).Value = _fecha;
+                cmd.Parameters.Add("@Fecha3", SqlDbType.DateTime2).Value = FECHA;
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
                 cn.Desconectar();
